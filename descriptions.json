@@ -1,0 +1,181 @@
+{
+  "LicencedProducts": {
+    "English": "",
+    "Spanish": {
+      "Title": "Licencias Milestone XProtect",
+      "Description": "Mantener activo el estado de Milestone Care Plus permite a los usuarios actualizar su producto Milestone XProtect a la última versión tan pronto como esta es liberada, sin incurrir en gastos adicionales. Manteniendo activo el estado de Care Premium permite a los usuarios finales acceso directo al Soporte Técnico de Milestone 24/7. De igual manera, se incrementa la prioridad en las llamadas telefónicas; y todos los casos de soporte Care Premium reciben un Acuerdo del Nivel de Servicio (Service Level Agreement (SLA)) para el tiempo de primera respuesta y actualización frecuente de estado."
+    }
+  },
+
+
+  "LicenceDetails": {
+    "English": "",
+    "Spanish": {
+      "Title": "Licencias Milestone XProtect Activadas ",
+      "Description": "Estado de SLKs."
+    }
+  },
+
+
+  "Win32_Service": {
+    "English": "",
+    "Spanish": {
+      "Title": "Servicios Milestone XProtect",
+      "Description": "Mantenerse actualizado sobre las versiones de Milestone XProtect permite a los usuarios tomar ventaja de las ultimas funciones, capacidades y optimizaciones de rendimiento. Las nuevas funciones permiten a los usuarios incrementar la confiabilidad, aumentar la seguridad y reducir costos de propiedad."
+    }
+  },
+  "Win32_Product": {
+    "English": "",
+    "Spanish": {
+      "Title": "Productos Milestone XProtect Instalados",
+      "Description": "Mantenerse actualizado sobre las versiones de Milestone XProtect permite a los usuarios tomar ventaja de las ultimas funciones, capacidades y optimizaciones de rendimiento. Las nuevas funciones permiten a los usuarios incrementar la confiabilidad, aumentar la seguridad y reducir costos de propiedad."
+    }
+  },
+  "Win32_DiskDrive": {
+    "English": "",
+    "Spanish": {
+      "Title": "Discos",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_DiskPartition": {
+    "English": "",
+    "Spanish": {
+      "Title": "Particiones",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_LogicalDisk": {
+    "English": "",
+    "Spanish": {
+      "Title": "Unidades Logicas",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_Volume": {
+    "English": "",
+    "Spanish": {
+      "Title": "Volumenes",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_BaseBoard": {
+    "English": "",
+    "Spanish": {
+      "Title": "Placa Madre",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_BIOS": {
+    "English": "",
+    "Spanish": {
+      "Title": "BIOS",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_CacheMemory": {
+    "English": "",
+    "Spanish": {
+      "Title": "Memoria Cache",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_PhysicalMemory": {
+    "English": "",
+    "Spanish": {
+      "Title": "Memoria",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_Processor": {
+    "English": "",
+    "Spanish": {
+      "Title": "Procesadores",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "CIM_VideoController": {
+    "English": "",
+    "Spanish": {
+      "Title": "Placas de Video",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_SystemEnclosure": {
+    "English": "",
+    "Spanish": {
+      "Title": "Gabinete",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_NetworkAdapter": {
+    "English": "",
+    "Spanish": {
+      "Title": "Adaptadores de Red",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_NetworkAdapterConfiguration": {
+    "English": "",
+    "Spanish": {
+      "Title": "Configuracion de Adapatadores de Red",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_NetworkConnection": {
+    "English": "",
+    "Spanish": {
+      "Title": "Conectiones de Red",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_DesktopMonitor": {
+    "English": "",
+    "Spanish": {
+      "Title": "Monitores",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_VideoController": {
+    "English": "",
+    "Spanish": {
+      "Title": "Controladores de video",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_ComputerSystem": {
+    "English": "",
+    "Spanish": {
+      "Title": "Sistema de computo",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_ComputerSystemProduct": {
+    "English": "",
+    "Spanish": {
+      "Title": "Productos del sistema de computo",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_OperatingSystem": {
+    "English": "",
+    "Spanish": {
+      "Title": "Sistema Operativo",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_QuickFixEngineering": {
+    "English": "",
+    "Spanish": {
+      "Title": "Actualizaciones de Windows",
+      "Description": "bla bla bla algo de discos bla bla bla"
+    }
+  },
+  "Win32_StartupCommand": {
+    "English": "",
+    "Spanish": {
+      "Title": "Comandos de auto arranque",
+      "Description": "La seguridad y todo eso"
+    }
+  }
+}

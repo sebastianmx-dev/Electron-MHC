@@ -1,0 +1,2107 @@
+{
+    "LicencedProducts":  [
+                             {
+                                 "ProductDisplayName":  "XProtect Corporate 2021 R2",
+                                 "Slc":  "M01-C01-212-01-6C42E1",
+                                 "ExpirationDate":  "Unrestricted",
+                                 "CarePlus":  "1/30/2030",
+                                 "CarePremium":  "N/A",
+                                 "Name":  null,
+                                 "DisplayName":  "XProtect Corporate 2021 R2"
+                             },
+                             {
+                                 "ProductDisplayName":  "Milestone XProtect Smart Wall",
+                                 "Slc":  "M01-P03-100-01-6C98D0",
+                                 "ExpirationDate":  "Unrestricted",
+                                 "CarePlus":  "Unrestricted",
+                                 "CarePremium":  "",
+                                 "Name":  null,
+                                 "DisplayName":  "Milestone XProtect Smart Wall"
+                             },
+                             {
+                                 "ProductDisplayName":  "Server Connection License Sample",
+                                 "Slc":  "",
+                                 "ExpirationDate":  "Unrestricted",
+                                 "CarePlus":  "Unrestricted",
+                                 "CarePremium":  "",
+                                 "Name":  null,
+                                 "DisplayName":  "Server Connection License Sample"
+                             },
+                             {
+                                 "ProductDisplayName":  "Access control door",
+                                 "Slc":  "M01-P01-100-01-6C430B",
+                                 "ExpirationDate":  "Unrestricted",
+                                 "CarePlus":  "Unrestricted",
+                                 "CarePremium":  "",
+                                 "Name":  null,
+                                 "DisplayName":  "Access control door"
+                             },
+                             {
+                                 "ProductDisplayName":  "Transaction source",
+                                 "Slc":  "M01-P08-100-01-6C49A3",
+                                 "ExpirationDate":  "Unrestricted",
+                                 "CarePlus":  "Unrestricted",
+                                 "CarePremium":  "",
+                                 "Name":  null,
+                                 "DisplayName":  "Transaction source"
+                             },
+                             {
+                                 "ProductDisplayName":  "Export to Axon",
+                                 "Slc":  "",
+                                 "ExpirationDate":  "Unrestricted",
+                                 "CarePlus":  "Unrestricted",
+                                 "CarePremium":  "",
+                                 "Name":  null,
+                                 "DisplayName":  "Export to Axon"
+                             }
+                         ],
+    "LicenceDetails":  [
+                           {
+                               "LicenseType":  "Device License",
+                               "Activated":  "11",
+                               "ChangesWithoutActivation":  "0 out of 10",
+                               "InGrace":  0,
+                               "GraceExpired":  "0",
+                               "NotLicensed":  "0",
+                               "Note":  ""
+                           },
+                           {
+                               "LicenseType":  "Milestone Interconnect Camera",
+                               "Activated":  "0",
+                               "ChangesWithoutActivation":  "N/A",
+                               "InGrace":  0,
+                               "GraceExpired":  "0",
+                               "NotLicensed":  "0",
+                               "Note":  ""
+                           },
+                           {
+                               "LicenseType":  "MIPSDK-ServerConnectionLicense",
+                               "Activated":  "0",
+                               "ChangesWithoutActivation":  "N/A",
+                               "InGrace":  0,
+                               "GraceExpired":  "0",
+                               "NotLicensed":  "0",
+                               "Note":  ""
+                           },
+                           {
+                               "LicenseType":  "MIPSDK-SiteLicense",
+                               "Activated":  "0",
+                               "ChangesWithoutActivation":  "N/A",
+                               "InGrace":  1,
+                               "GraceExpired":  "0",
+                               "NotLicensed":  "0",
+                               "Note":  ""
+                           },
+                           {
+                               "LicenseType":  "Milestone.CustDev.ExportToAxonLicenseId",
+                               "Activated":  "1",
+                               "ChangesWithoutActivation":  "N/A",
+                               "InGrace":  0,
+                               "GraceExpired":  "0",
+                               "NotLicensed":  "0",
+                               "Note":  ""
+                           },
+                           {
+                               "LicenseType":  "XPAC",
+                               "Activated":  "0",
+                               "ChangesWithoutActivation":  "N/A",
+                               "InGrace":  0,
+                               "GraceExpired":  "0",
+                               "NotLicensed":  "0",
+                               "Note":  ""
+                           },
+                           {
+                               "LicenseType":  "XPT",
+                               "Activated":  "0",
+                               "ChangesWithoutActivation":  "N/A",
+                               "InGrace":  0,
+                               "GraceExpired":  "0",
+                               "NotLicensed":  "0",
+                               "Note":  ""
+                           }
+                       ],
+    "Win32_Service":  [
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Data Collector Server",
+                              "Description":  "Manage gathering of performance counter data used by reporting functionality",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "MEX-LAB\\milestone_srv",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Data Collector Server\\VideoOS.DataCollector.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Log Server",
+                              "Description":  "Provides the necessary functionality for logging information from your surveillance system.",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "MEX-LAB\\milestone_srv",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Log Server\\VideoOS.LogServer.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Management Server",
+                              "Description":  "Manages communication, configuration and log-data for associated recording servers",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "MEX-LAB\\milestone_srv",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Management Server\\VideoOS.Server.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Mobile Server",
+                              "Description":  "Provides video support for mobile devices using Milestone XProtect Systems.",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "MEX-LAB\\milestone_srv",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Mobile Server\\VideoOS.MobileServer.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Recording Server",
+                              "Description":  "Processes and records data from IP devices",
+                              "State":  "Stopped",
+                              "StartMode":  "Disabled",
+                              "StartName":  "MEX-LAB\\milestone_srv",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Recording Server\\VideoOS.Recorder.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "MilestoneEventServerService",
+                              "Description":  "The server for handling XProtect Smart Client alarms and maps.",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "MEX-LAB\\milestone_srv",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Event Server\\VideoOS.Event.Server.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm2",
+                              "Name":  "Milestone XProtect Data Collector Server",
+                              "Description":  "Manage gathering of performance counter data used by reporting functionality",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "NT AUTHORITY\\NetworkService",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Data Collector Server\\VideoOS.DataCollector.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm2",
+                              "Name":  "Milestone XProtect Recording Server",
+                              "Description":  "Processes and records data from IP devices",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "NT AUTHORITY\\NetworkService",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Recording Server\\VideoOS.Recorder.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm3",
+                              "Name":  "VideoOS.ACMServer",
+                              "Description":  "Hosts an API for interacting with ACM Plugins installed on this system.",
+                              "State":  "Stopped",
+                              "StartMode":  "Auto",
+                              "StartName":  "LocalSystem",
+                              "PathName":  "\"C:\\Program Files\\Milestone ACM Server\\bin\\milhost.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm4",
+                              "Name":  "Milestone XProtect Data Collector Server",
+                              "Description":  "Manage gathering of performance counter data used by reporting functionality",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "NT AUTHORITY\\NetworkService",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Data Collector Server\\VideoOS.DataCollector.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm4",
+                              "Name":  "Milestone XProtect Recording Server",
+                              "Description":  "Processes and records data from IP devices",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "NT AUTHORITY\\NetworkService",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Recording Server\\VideoOS.Recorder.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm5",
+                              "Name":  "Milestone XProtect Data Collector Server",
+                              "Description":  "Manage gathering of performance counter data used by reporting functionality",
+                              "State":  "Running",
+                              "StartMode":  "Auto",
+                              "StartName":  "NT AUTHORITY\\NetworkService",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Data Collector Server\\VideoOS.DataCollector.Service.exe\""
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm5",
+                              "Name":  "Milestone XProtect Recording Server",
+                              "Description":  "Processes and records data from IP devices",
+                              "State":  "Stopped",
+                              "StartMode":  "Auto",
+                              "StartName":  "NT AUTHORITY\\NetworkService",
+                              "PathName":  "\"C:\\Program Files\\Milestone\\XProtect Recording Server\\VideoOS.Recorder.Service.exe\""
+                          }
+                      ],
+    "Win32_Product":  [
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "64-bit Milestone XProtect Mobile Administrator Plug-in",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "1.0.0.0",
+                              "InstallDate":  "20211126"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "64-bit Milestone XProtect Mobile Server",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "1.0.0.0",
+                              "InstallDate":  "20211126"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone ACM Server: MIP Plugin",
+                              "Vendor":  "Milestone Systems Inc.",
+                              "Version":  "4.0.21125.1346",
+                              "InstallDate":  "20211201"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone Axon Export",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "1.1.0.0",
+                              "InstallDate":  "20211215"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone MIP SDK 2021 R2",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.2.801.1",
+                              "InstallDate":  "20211201"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect API Gateway",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.2.23.1",
+                              "InstallDate":  "20211203"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Data Collector Server",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.819",
+                              "InstallDate":  "20211208"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Log Server 2021 R2",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.2.1000.1",
+                              "InstallDate":  "20211126"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Management Server (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1877",
+                              "InstallDate":  "20211217"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Mobile Two-step Verification providers",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "1.0.0.0",
+                              "InstallDate":  "20211126"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Recording Server (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1877",
+                              "InstallDate":  "20211217"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect Smart Client 2021 R2 (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1005",
+                              "InstallDate":  "20211126"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "Milestone XProtect VMS Device Pack 11.8a",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "11.8.69.1",
+                              "InstallDate":  "20211217"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "XProtect Event Server (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.2.1276.1",
+                              "InstallDate":  "20211126"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm1",
+                              "Name":  "XProtect Management Client 2021 R2 (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1877",
+                              "InstallDate":  "20211126"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm2",
+                              "Name":  "Milestone XProtect Data Collector Server",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.819",
+                              "InstallDate":  "20211208"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm2",
+                              "Name":  "Milestone XProtect Recording Server (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1877",
+                              "InstallDate":  "20211217"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm2",
+                              "Name":  "Milestone XProtect VMS Device Pack 11.7a",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "11.7.68.1",
+                              "InstallDate":  "20211208"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm2",
+                              "Name":  "XProtect Management Client 2021 R2 (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1877",
+                              "InstallDate":  "20211124"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm3",
+                              "Name":  "Milestone ACM Server",
+                              "Vendor":  "Milestone Systems Inc.",
+                              "Version":  "4.0.21125.1346",
+                              "InstallDate":  "20211201"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm3",
+                              "Name":  "Milestone ACM Server: OnGuard Plugin",
+                              "Vendor":  "Milestone Systems Inc.",
+                              "Version":  "4.0.21125.1346",
+                              "InstallDate":  "20211201"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm4",
+                              "Name":  "Milestone XProtect Data Collector Server",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.819",
+                              "InstallDate":  "20211208"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm4",
+                              "Name":  "Milestone XProtect Recording Server (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1877",
+                              "InstallDate":  "20211217"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm4",
+                              "Name":  "Milestone XProtect Smart Client 2021 R2 (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1005",
+                              "InstallDate":  "20211202"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm4",
+                              "Name":  "Milestone XProtect VMS Device Pack 11.8a",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "11.8.69.1",
+                              "InstallDate":  "20211217"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm5",
+                              "Name":  "Milestone XProtect Data Collector Server",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.819",
+                              "InstallDate":  "20211208"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm5",
+                              "Name":  "Milestone XProtect Recording Server (64-bit)",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "21.21.1877",
+                              "InstallDate":  "20211208"
+                          },
+                          {
+                              "PSComputerName":  "sgiu-vm5",
+                              "Name":  "Milestone XProtect VMS Device Pack 11.7a",
+                              "Vendor":  "Milestone Systems A/S",
+                              "Version":  "11.7.68.1",
+                              "InstallDate":  "20211208"
+                          }
+                      ],
+    "Win32_DiskDrive":  [
+                            {
+                                "PSComputerName":  "sgiu-vm1",
+                                "Index":  0,
+                                "Name":  "\\\\.\\PHYSICALDRIVE0",
+                                "Model":  "Microsoft Virtual Disk",
+                                "Partitions":  3,
+                                "InterfaceType":  "SCSI",
+                                "Size_GB":  150
+                            },
+                            {
+                                "PSComputerName":  "sgiu-vm2",
+                                "Index":  0,
+                                "Name":  "\\\\.\\PHYSICALDRIVE0",
+                                "Model":  "Microsoft Virtual Disk",
+                                "Partitions":  3,
+                                "InterfaceType":  "SCSI",
+                                "Size_GB":  150
+                            },
+                            {
+                                "PSComputerName":  "sgiu-vm3",
+                                "Index":  0,
+                                "Name":  "\\\\.\\PHYSICALDRIVE0",
+                                "Model":  "Microsoft Virtual Disk",
+                                "Partitions":  3,
+                                "InterfaceType":  "SCSI",
+                                "Size_GB":  150
+                            },
+                            {
+                                "PSComputerName":  "sgiu-vm4",
+                                "Index":  0,
+                                "Name":  "\\\\.\\PHYSICALDRIVE0",
+                                "Model":  "Microsoft Virtual Disk",
+                                "Partitions":  3,
+                                "InterfaceType":  "SCSI",
+                                "Size_GB":  150
+                            },
+                            {
+                                "PSComputerName":  "sgiu-vm5",
+                                "Index":  0,
+                                "Name":  "\\\\.\\PHYSICALDRIVE0",
+                                "Model":  "Microsoft Virtual Disk",
+                                "Partitions":  3,
+                                "InterfaceType":  "SCSI",
+                                "Size_GB":  150
+                            },
+                            {
+                                "PSComputerName":  "sgiu-vm5",
+                                "Index":  1,
+                                "Name":  "\\\\.\\PHYSICALDRIVE1",
+                                "Model":  "Microsoft Virtual Disk",
+                                "Partitions":  1,
+                                "InterfaceType":  "SCSI",
+                                "Size_GB":  39.99
+                            }
+                        ],
+    "Win32_DiskPartition":  [
+                                {
+                                    "PSComputerName":  "sgiu-vm1",
+                                    "Index":  2,
+                                    "Name":  "Disk #0, Partition #2",
+                                    "Size_GB":  149.4,
+                                    "BlockSize":  512,
+                                    "NumberOfBlocks":  313309184,
+                                    "Bootable":  false,
+                                    "PrimaryPartition":  true,
+                                    "BootPartition":  false,
+                                    "Type":  "GPT: Basic Data"
+                                },
+                                {
+                                    "PSComputerName":  "sgiu-vm2",
+                                    "Index":  2,
+                                    "Name":  "Disk #0, Partition #2",
+                                    "Size_GB":  149.4,
+                                    "BlockSize":  512,
+                                    "NumberOfBlocks":  313309184,
+                                    "Bootable":  false,
+                                    "PrimaryPartition":  true,
+                                    "BootPartition":  false,
+                                    "Type":  "GPT: Basic Data"
+                                },
+                                {
+                                    "PSComputerName":  "sgiu-vm3",
+                                    "Index":  2,
+                                    "Name":  "Disk #0, Partition #2",
+                                    "Size_GB":  149.4,
+                                    "BlockSize":  512,
+                                    "NumberOfBlocks":  313309184,
+                                    "Bootable":  false,
+                                    "PrimaryPartition":  true,
+                                    "BootPartition":  false,
+                                    "Type":  "GPT: Basic Data"
+                                },
+                                {
+                                    "PSComputerName":  "sgiu-vm4",
+                                    "Index":  2,
+                                    "Name":  "Disk #0, Partition #2",
+                                    "Size_GB":  149.4,
+                                    "BlockSize":  512,
+                                    "NumberOfBlocks":  313309184,
+                                    "Bootable":  false,
+                                    "PrimaryPartition":  true,
+                                    "BootPartition":  false,
+                                    "Type":  "GPT: Basic Data"
+                                },
+                                {
+                                    "PSComputerName":  "sgiu-vm5",
+                                    "Index":  0,
+                                    "Name":  "Disk #1, Partition #0",
+                                    "Size_GB":  39.98,
+                                    "BlockSize":  512,
+                                    "NumberOfBlocks":  83849216,
+                                    "Bootable":  false,
+                                    "PrimaryPartition":  true,
+                                    "BootPartition":  false,
+                                    "Type":  "GPT: Basic Data"
+                                },
+                                {
+                                    "PSComputerName":  "sgiu-vm5",
+                                    "Index":  2,
+                                    "Name":  "Disk #0, Partition #2",
+                                    "Size_GB":  149.4,
+                                    "BlockSize":  512,
+                                    "NumberOfBlocks":  313309184,
+                                    "Bootable":  false,
+                                    "PrimaryPartition":  true,
+                                    "BootPartition":  false,
+                                    "Type":  "GPT: Basic Data"
+                                }
+                            ],
+    "Win32_LogicalDisk":  [
+                              {
+                                  "PSComputerName":  "sgiu-vm1",
+                                  "Name":  "C:",
+                                  "VolumeName":  "",
+                                  "Description":  "Local Fixed Disk",
+                                  "FreeSpace_GB":  102.8,
+                                  "Size_GB":  149.4,
+                                  "FileSystem":  "NTFS",
+                                  "BlockSize":  null,
+                                  "Compressed":  false,
+                                  "MediaType":  12
+                              },
+                              {
+                                  "PSComputerName":  "sgiu-vm2",
+                                  "Name":  "C:",
+                                  "VolumeName":  "",
+                                  "Description":  "Local Fixed Disk",
+                                  "FreeSpace_GB":  104.95,
+                                  "Size_GB":  149.4,
+                                  "FileSystem":  "NTFS",
+                                  "BlockSize":  null,
+                                  "Compressed":  false,
+                                  "MediaType":  12
+                              },
+                              {
+                                  "PSComputerName":  "sgiu-vm3",
+                                  "Name":  "C:",
+                                  "VolumeName":  "",
+                                  "Description":  "Local Fixed Disk",
+                                  "FreeSpace_GB":  91.22,
+                                  "Size_GB":  149.4,
+                                  "FileSystem":  "NTFS",
+                                  "BlockSize":  null,
+                                  "Compressed":  false,
+                                  "MediaType":  12
+                              },
+                              {
+                                  "PSComputerName":  "sgiu-vm4",
+                                  "Name":  "C:",
+                                  "VolumeName":  "",
+                                  "Description":  "Local Fixed Disk",
+                                  "FreeSpace_GB":  122,
+                                  "Size_GB":  149.4,
+                                  "FileSystem":  "NTFS",
+                                  "BlockSize":  null,
+                                  "Compressed":  false,
+                                  "MediaType":  12
+                              },
+                              {
+                                  "PSComputerName":  "sgiu-vm5",
+                                  "Name":  "C:",
+                                  "VolumeName":  "",
+                                  "Description":  "Local Fixed Disk",
+                                  "FreeSpace_GB":  112.13,
+                                  "Size_GB":  149.4,
+                                  "FileSystem":  "NTFS",
+                                  "BlockSize":  null,
+                                  "Compressed":  false,
+                                  "MediaType":  12
+                              },
+                              {
+                                  "PSComputerName":  "sgiu-vm5",
+                                  "Name":  "E:",
+                                  "VolumeName":  "Archive Drive",
+                                  "Description":  "Local Fixed Disk",
+                                  "FreeSpace_GB":  39.9,
+                                  "Size_GB":  39.98,
+                                  "FileSystem":  "NTFS",
+                                  "BlockSize":  null,
+                                  "Compressed":  false,
+                                  "MediaType":  12
+                              }
+                          ],
+    "Win32_Volume":  [
+                         {
+                             "PSComputerName":  "sgiu-vm1",
+                             "DriveLetter":  "C:",
+                             "Label":  null,
+                             "Capacity":  160414298112,
+                             "Capacity_GB":  149.4,
+                             "FreeSpace_GB":  102.8,
+                             "BlockSize":  4096,
+                             "IndexingEnabled":  true,
+                             "Compressed":  false,
+                             "FileSystem":  "NTFS",
+                             "SystemVolume":  false
+                         },
+                         {
+                             "PSComputerName":  "sgiu-vm2",
+                             "DriveLetter":  "C:",
+                             "Label":  null,
+                             "Capacity":  160414298112,
+                             "Capacity_GB":  149.4,
+                             "FreeSpace_GB":  104.95,
+                             "BlockSize":  4096,
+                             "IndexingEnabled":  true,
+                             "Compressed":  false,
+                             "FileSystem":  "NTFS",
+                             "SystemVolume":  false
+                         },
+                         {
+                             "PSComputerName":  "sgiu-vm3",
+                             "DriveLetter":  "C:",
+                             "Label":  null,
+                             "Capacity":  160414298112,
+                             "Capacity_GB":  149.4,
+                             "FreeSpace_GB":  91.22,
+                             "BlockSize":  4096,
+                             "IndexingEnabled":  true,
+                             "Compressed":  false,
+                             "FileSystem":  "NTFS",
+                             "SystemVolume":  false
+                         },
+                         {
+                             "PSComputerName":  "sgiu-vm4",
+                             "DriveLetter":  "C:",
+                             "Label":  null,
+                             "Capacity":  160414298112,
+                             "Capacity_GB":  149.4,
+                             "FreeSpace_GB":  122,
+                             "BlockSize":  4096,
+                             "IndexingEnabled":  true,
+                             "Compressed":  false,
+                             "FileSystem":  "NTFS",
+                             "SystemVolume":  false
+                         },
+                         {
+                             "PSComputerName":  "sgiu-vm5",
+                             "DriveLetter":  "C:",
+                             "Label":  null,
+                             "Capacity":  160414298112,
+                             "Capacity_GB":  149.4,
+                             "FreeSpace_GB":  112.13,
+                             "BlockSize":  4096,
+                             "IndexingEnabled":  true,
+                             "Compressed":  false,
+                             "FileSystem":  "NTFS",
+                             "SystemVolume":  false
+                         },
+                         {
+                             "PSComputerName":  "sgiu-vm5",
+                             "DriveLetter":  "E:",
+                             "Label":  "Archive Drive",
+                             "Capacity":  42930733056,
+                             "Capacity_GB":  39.98,
+                             "FreeSpace_GB":  39.9,
+                             "BlockSize":  65536,
+                             "IndexingEnabled":  true,
+                             "Compressed":  false,
+                             "FileSystem":  "NTFS",
+                             "SystemVolume":  false
+                         }
+                     ],
+    "Win32_BaseBoard":  [
+                            {
+                                "Name":  "Base Board",
+                                "Manufacturer":  "Microsoft Corporation",
+                                "SerialNumber":  "2403-5346-1393-1671-6963-6606-11",
+                                "Version":  "Hyper-V UEFI Release v4.0",
+                                "Product":  "Virtual Machine",
+                                "PSComputerName":  "sgiu-vm1"
+                            },
+                            {
+                                "Name":  "Base Board",
+                                "Manufacturer":  "Microsoft Corporation",
+                                "SerialNumber":  "0170-9907-6391-1784-1613-8674-94",
+                                "Version":  "Hyper-V UEFI Release v4.0",
+                                "Product":  "Virtual Machine",
+                                "PSComputerName":  "sgiu-vm2"
+                            },
+                            {
+                                "Name":  "Base Board",
+                                "Manufacturer":  "Microsoft Corporation",
+                                "SerialNumber":  "5483-1616-3900-5784-1433-7129-83",
+                                "Version":  "Hyper-V UEFI Release v4.0",
+                                "Product":  "Virtual Machine",
+                                "PSComputerName":  "sgiu-vm3"
+                            },
+                            {
+                                "Name":  "Base Board",
+                                "Manufacturer":  "Microsoft Corporation",
+                                "SerialNumber":  "8654-0468-3198-4254-9121-0438-57",
+                                "Version":  "Hyper-V UEFI Release v4.0",
+                                "Product":  "Virtual Machine",
+                                "PSComputerName":  "sgiu-vm4"
+                            },
+                            {
+                                "Name":  "Base Board",
+                                "Manufacturer":  "Microsoft Corporation",
+                                "SerialNumber":  "9252-1153-4793-5466-3857-6255-43",
+                                "Version":  "Hyper-V UEFI Release v4.0",
+                                "Product":  "Virtual Machine",
+                                "PSComputerName":  "sgiu-vm5"
+                            }
+                        ],
+    "Win32_BIOS":  [
+                       {
+                           "Name":  "Hyper-V UEFI Release v4.0",
+                           "Manufacturer":  "Microsoft Corporation",
+                           "BIOSVersion":  [
+                                               "VRTUAL - 1",
+                                               "Hyper-V UEFI Release v4.0",
+                                               "Microsoft - 100032"
+                                           ],
+                           "PSComputerName":  "sgiu-vm1"
+                       },
+                       {
+                           "Name":  "Hyper-V UEFI Release v4.0",
+                           "Manufacturer":  "Microsoft Corporation",
+                           "BIOSVersion":  [
+                                               "VRTUAL - 1",
+                                               "Hyper-V UEFI Release v4.0",
+                                               "Microsoft - 100032"
+                                           ],
+                           "PSComputerName":  "sgiu-vm2"
+                       },
+                       {
+                           "Name":  "Hyper-V UEFI Release v4.0",
+                           "Manufacturer":  "Microsoft Corporation",
+                           "BIOSVersion":  [
+                                               "VRTUAL - 1",
+                                               "Hyper-V UEFI Release v4.0",
+                                               "Microsoft - 100032"
+                                           ],
+                           "PSComputerName":  "sgiu-vm3"
+                       },
+                       {
+                           "Name":  "Hyper-V UEFI Release v4.0",
+                           "Manufacturer":  "Microsoft Corporation",
+                           "BIOSVersion":  [
+                                               "VRTUAL - 1",
+                                               "Hyper-V UEFI Release v4.0",
+                                               "Microsoft - 100032"
+                                           ],
+                           "PSComputerName":  "sgiu-vm4"
+                       },
+                       {
+                           "Name":  "Hyper-V UEFI Release v4.0",
+                           "Manufacturer":  "Microsoft Corporation",
+                           "BIOSVersion":  [
+                                               "VRTUAL - 1",
+                                               "Hyper-V UEFI Release v4.0",
+                                               "Microsoft - 100032"
+                                           ],
+                           "PSComputerName":  "sgiu-vm5"
+                       }
+                   ],
+    "Win32_CacheMemory":  {
+
+                          },
+    "Win32_PhysicalMemory":  [
+                                 {
+                                     "Tag":  "Physical Memory 0",
+                                     "BankLabel":  "None",
+                                     "Capacity":  4160749568,
+                                     "Capacity_GB":  3.88,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 1",
+                                     "BankLabel":  "None",
+                                     "Capacity":  13019119616,
+                                     "Capacity_GB":  12.12,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 0",
+                                     "BankLabel":  "None",
+                                     "Capacity":  4160749568,
+                                     "Capacity_GB":  3.88,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm2"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 1",
+                                     "BankLabel":  "None",
+                                     "Capacity":  13019119616,
+                                     "Capacity_GB":  12.12,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm2"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 0",
+                                     "BankLabel":  "None",
+                                     "Capacity":  4160749568,
+                                     "Capacity_GB":  3.88,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm3"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 1",
+                                     "BankLabel":  "None",
+                                     "Capacity":  4429185024,
+                                     "Capacity_GB":  4.12,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm3"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 0",
+                                     "BankLabel":  "None",
+                                     "Capacity":  4160749568,
+                                     "Capacity_GB":  3.88,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm4"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 1",
+                                     "BankLabel":  "None",
+                                     "Capacity":  4429185024,
+                                     "Capacity_GB":  4.12,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm4"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 0",
+                                     "BankLabel":  "None",
+                                     "Capacity":  4160749568,
+                                     "Capacity_GB":  3.88,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm5"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 1",
+                                     "BankLabel":  "None",
+                                     "Capacity":  4429185024,
+                                     "Capacity_GB":  4.12,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm5"
+                                 },
+                                 {
+                                     "Tag":  "Physical Memory 2",
+                                     "BankLabel":  "None",
+                                     "Capacity":  8589934592,
+                                     "Capacity_GB":  8,
+                                     "Speed":  null,
+                                     "ConfiguredClockSpeed":  0,
+                                     "ConfiguredVoltage":  0,
+                                     "DataWidth":  null,
+                                     "PartNumber":  "None",
+                                     "SerialNumber":  "None",
+                                     "PSComputerName":  "sgiu-vm5"
+                                 }
+                             ],
+    "Win32_Processor":  [
+                            {
+                                "DeviceID":  "CPU0",
+                                "Name":  "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
+                                "Description":  "Intel64 Family 6 Model 85 Stepping 4",
+                                "Manufacturer":  "GenuineIntel",
+                                "NumberOfCores":  8,
+                                "NumberOfLogicalProcessors":  16,
+                                "LoadPercentage":  0,
+                                "CurrentClockSpeed":  2095,
+                                "MaxClockSpeed":  2095,
+                                "CurrentVoltage":  7,
+                                "VoltageCaps":  null,
+                                "L2CacheSize":  null,
+                                "L2CacheSpeed":  null,
+                                "L3CacheSize":  0,
+                                "L3CacheSpeed":  0,
+                                "PartNumber":  "None",
+                                "Status":  "OK",
+                                "PSComputerName":  "sgiu-vm1"
+                            },
+                            {
+                                "DeviceID":  "CPU0",
+                                "Name":  "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
+                                "Description":  "Intel64 Family 6 Model 85 Stepping 4",
+                                "Manufacturer":  "GenuineIntel",
+                                "NumberOfCores":  6,
+                                "NumberOfLogicalProcessors":  12,
+                                "LoadPercentage":  2,
+                                "CurrentClockSpeed":  2095,
+                                "MaxClockSpeed":  2095,
+                                "CurrentVoltage":  7,
+                                "VoltageCaps":  null,
+                                "L2CacheSize":  null,
+                                "L2CacheSpeed":  null,
+                                "L3CacheSize":  0,
+                                "L3CacheSpeed":  0,
+                                "PartNumber":  "None",
+                                "Status":  "OK",
+                                "PSComputerName":  "sgiu-vm2"
+                            },
+                            {
+                                "DeviceID":  "CPU0",
+                                "Name":  "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
+                                "Description":  "Intel64 Family 6 Model 85 Stepping 4",
+                                "Manufacturer":  "GenuineIntel",
+                                "NumberOfCores":  2,
+                                "NumberOfLogicalProcessors":  4,
+                                "LoadPercentage":  2,
+                                "CurrentClockSpeed":  2095,
+                                "MaxClockSpeed":  2095,
+                                "CurrentVoltage":  8,
+                                "VoltageCaps":  null,
+                                "L2CacheSize":  null,
+                                "L2CacheSpeed":  null,
+                                "L3CacheSize":  0,
+                                "L3CacheSpeed":  0,
+                                "PartNumber":  "None",
+                                "Status":  "OK",
+                                "PSComputerName":  "sgiu-vm3"
+                            },
+                            {
+                                "DeviceID":  "CPU0",
+                                "Name":  "Intel(R) Xeon(R) Silver 4114 CPU @ 2.20GHz",
+                                "Description":  "Intel64 Family 6 Model 85 Stepping 4",
+                                "Manufacturer":  "GenuineIntel",
+                                "NumberOfCores":  2,
+                                "NumberOfLogicalProcessors":  4,
+                                "LoadPercentage":  2,
+                                "CurrentClockSpeed":  2195,
+                                "MaxClockSpeed":  2195,
+                                "CurrentVoltage":  8,
+                                "VoltageCaps":  null,
+                                "L2CacheSize":  null,
+                                "L2CacheSpeed":  null,
+                                "L3CacheSize":  0,
+                                "L3CacheSpeed":  0,
+                                "PartNumber":  "None",
+                                "Status":  "OK",
+                                "PSComputerName":  "sgiu-vm4"
+                            },
+                            {
+                                "DeviceID":  "CPU0",
+                                "Name":  "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
+                                "Description":  "Intel64 Family 6 Model 85 Stepping 4",
+                                "Manufacturer":  "GenuineIntel",
+                                "NumberOfCores":  8,
+                                "NumberOfLogicalProcessors":  16,
+                                "LoadPercentage":  2,
+                                "CurrentClockSpeed":  2095,
+                                "MaxClockSpeed":  2095,
+                                "CurrentVoltage":  8,
+                                "VoltageCaps":  null,
+                                "L2CacheSize":  null,
+                                "L2CacheSpeed":  null,
+                                "L3CacheSize":  0,
+                                "L3CacheSpeed":  0,
+                                "PartNumber":  "None",
+                                "Status":  "OK",
+                                "PSComputerName":  "sgiu-vm5"
+                            },
+                            {
+                                "DeviceID":  "CPU1",
+                                "Name":  "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
+                                "Description":  "Intel64 Family 6 Model 85 Stepping 4",
+                                "Manufacturer":  "GenuineIntel",
+                                "NumberOfCores":  8,
+                                "NumberOfLogicalProcessors":  16,
+                                "LoadPercentage":  0,
+                                "CurrentClockSpeed":  2095,
+                                "MaxClockSpeed":  2095,
+                                "CurrentVoltage":  8,
+                                "VoltageCaps":  null,
+                                "L2CacheSize":  null,
+                                "L2CacheSpeed":  null,
+                                "L3CacheSize":  0,
+                                "L3CacheSpeed":  0,
+                                "PartNumber":  "None",
+                                "Status":  "OK",
+                                "PSComputerName":  "sgiu-vm5"
+                            }
+                        ],
+    "CIM_VideoController":  [
+                                {
+                                    "Name":  "Microsoft Hyper-V Video",
+                                    "Status":  "OK",
+                                    "DeviceID":  "VideoController1",
+                                    "VideoProcessor":  null,
+                                    "AdapterCompatibility":  "Microsoft",
+                                    "AdapterRAM":  null,
+                                    "DriverDate":  "\/Date(1150848000000)\/",
+                                    "DriverVersion":  "10.0.17763.1",
+                                    "PSComputerName":  "sgiu-vm1"
+                                },
+                                {
+                                    "Name":  "Microsoft Hyper-V Video",
+                                    "Status":  "OK",
+                                    "DeviceID":  "VideoController1",
+                                    "VideoProcessor":  null,
+                                    "AdapterCompatibility":  "Microsoft",
+                                    "AdapterRAM":  null,
+                                    "DriverDate":  "\/Date(1150848000000)\/",
+                                    "DriverVersion":  "10.0.17763.1",
+                                    "PSComputerName":  "sgiu-vm2"
+                                },
+                                {
+                                    "Name":  "Microsoft Hyper-V Video",
+                                    "Status":  "OK",
+                                    "DeviceID":  "VideoController1",
+                                    "VideoProcessor":  null,
+                                    "AdapterCompatibility":  "Microsoft",
+                                    "AdapterRAM":  null,
+                                    "DriverDate":  "\/Date(1150848000000)\/",
+                                    "DriverVersion":  "10.0.17763.1",
+                                    "PSComputerName":  "sgiu-vm3"
+                                },
+                                {
+                                    "Name":  "Microsoft Hyper-V Video",
+                                    "Status":  "OK",
+                                    "DeviceID":  "VideoController1",
+                                    "VideoProcessor":  null,
+                                    "AdapterCompatibility":  "Microsoft",
+                                    "AdapterRAM":  null,
+                                    "DriverDate":  "\/Date(1150848000000)\/",
+                                    "DriverVersion":  "10.0.17763.2145",
+                                    "PSComputerName":  "sgiu-vm4"
+                                },
+                                {
+                                    "Name":  "Microsoft Hyper-V Video",
+                                    "Status":  "OK",
+                                    "DeviceID":  "VideoController1",
+                                    "VideoProcessor":  null,
+                                    "AdapterCompatibility":  "Microsoft",
+                                    "AdapterRAM":  null,
+                                    "DriverDate":  "\/Date(1150848000000)\/",
+                                    "DriverVersion":  "10.0.17763.2145",
+                                    "PSComputerName":  "sgiu-vm5"
+                                }
+                            ],
+    "Win32_SystemEnclosure":  [
+                                  {
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "model":  null,
+                                      "SerialNumber":  "2403-5346-1393-1671-6963-6606-11",
+                                      "PSComputerName":  "sgiu-vm1"
+                                  },
+                                  {
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "model":  null,
+                                      "SerialNumber":  "0170-9907-6391-1784-1613-8674-94",
+                                      "PSComputerName":  "sgiu-vm2"
+                                  },
+                                  {
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "model":  null,
+                                      "SerialNumber":  "5483-1616-3900-5784-1433-7129-83",
+                                      "PSComputerName":  "sgiu-vm3"
+                                  },
+                                  {
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "model":  null,
+                                      "SerialNumber":  "8654-0468-3198-4254-9121-0438-57",
+                                      "PSComputerName":  "sgiu-vm4"
+                                  },
+                                  {
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "model":  null,
+                                      "SerialNumber":  "9252-1153-4793-5466-3857-6255-43",
+                                      "PSComputerName":  "sgiu-vm5"
+                                  }
+                              ],
+    "Win32_NetworkAdapter":  [
+                                 {
+                                     "DeviceID":  "1",
+                                     "Name":  "Microsoft Hyper-V Network Adapter",
+                                     "ProductName":  "Microsoft Hyper-V Network Adapter",
+                                     "Manufacturer":  "Microsoft",
+                                     "Speed":  3000000000,
+                                     "AdapterType":  "Ethernet 802.3",
+                                     "MACAddress":  "00:15:5D:D6:DB:28",
+                                     "NetConnectionID":  "Ethernet",
+                                     "NetConnectionStatus":  2,
+                                     "NetEnabled":  true,
+                                     "PhysicalAdapter":  true,
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "DeviceID":  "1",
+                                     "Name":  "Microsoft Hyper-V Network Adapter",
+                                     "ProductName":  "Microsoft Hyper-V Network Adapter",
+                                     "Manufacturer":  "Microsoft",
+                                     "Speed":  3000000000,
+                                     "AdapterType":  "Ethernet 802.3",
+                                     "MACAddress":  "00:15:5D:D6:DB:24",
+                                     "NetConnectionID":  "Ethernet",
+                                     "NetConnectionStatus":  2,
+                                     "NetEnabled":  true,
+                                     "PhysicalAdapter":  true,
+                                     "PSComputerName":  "sgiu-vm2"
+                                 },
+                                 {
+                                     "DeviceID":  "1",
+                                     "Name":  "Microsoft Hyper-V Network Adapter",
+                                     "ProductName":  "Microsoft Hyper-V Network Adapter",
+                                     "Manufacturer":  "Microsoft",
+                                     "Speed":  3000000000,
+                                     "AdapterType":  "Ethernet 802.3",
+                                     "MACAddress":  "00:15:5D:D6:DB:92",
+                                     "NetConnectionID":  "Ethernet",
+                                     "NetConnectionStatus":  2,
+                                     "NetEnabled":  true,
+                                     "PhysicalAdapter":  true,
+                                     "PSComputerName":  "sgiu-vm3"
+                                 },
+                                 {
+                                     "DeviceID":  "1",
+                                     "Name":  "Microsoft Hyper-V Network Adapter",
+                                     "ProductName":  "Microsoft Hyper-V Network Adapter",
+                                     "Manufacturer":  "Microsoft",
+                                     "Speed":  3000000000,
+                                     "AdapterType":  "Ethernet 802.3",
+                                     "MACAddress":  "00:15:5D:B4:23:69",
+                                     "NetConnectionID":  "Ethernet",
+                                     "NetConnectionStatus":  2,
+                                     "NetEnabled":  true,
+                                     "PhysicalAdapter":  true,
+                                     "PSComputerName":  "sgiu-vm4"
+                                 },
+                                 {
+                                     "DeviceID":  "1",
+                                     "Name":  "Microsoft Hyper-V Network Adapter",
+                                     "ProductName":  "Microsoft Hyper-V Network Adapter",
+                                     "Manufacturer":  "Microsoft",
+                                     "Speed":  3000000000,
+                                     "AdapterType":  "Ethernet 802.3",
+                                     "MACAddress":  "00:15:5D:D6:DB:0A",
+                                     "NetConnectionID":  "Ethernet",
+                                     "NetConnectionStatus":  2,
+                                     "NetEnabled":  true,
+                                     "PhysicalAdapter":  true,
+                                     "PSComputerName":  "sgiu-vm5"
+                                 }
+                             ],
+    "Win32_NetworkAdapterConfiguration":  [
+                                              {
+                                                  "Index":  1,
+                                                  "Description":  "Microsoft Hyper-V Network Adapter",
+                                                  "DHCPEnabled":  false,
+                                                  "DHCPServer":  null,
+                                                  "DNSDomain":  null,
+                                                  "DNSHostName":  "SGIU-VM1",
+                                                  "DNSDomainSuffixSearchOrder":  [
+                                                                                     "MEX-LAB.com"
+                                                                                 ],
+                                                  "IPEnabled":  true,
+                                                  "IPAddress":  [
+                                                                    "10.1.0.21",
+                                                                    "fe80::f906:535:ca29:458"
+                                                                ],
+                                                  "DefaultIPGateway":  [
+                                                                           "10.1.1.1"
+                                                                       ],
+                                                  "IPSubnet":  [
+                                                                   "255.255.0.0",
+                                                                   "64"
+                                                               ],
+                                                  "MACAddress":  "00:15:5D:D6:DB:28",
+                                                  "PSComputerName":  "sgiu-vm1"
+                                              },
+                                              {
+                                                  "Index":  1,
+                                                  "Description":  "Microsoft Hyper-V Network Adapter",
+                                                  "DHCPEnabled":  false,
+                                                  "DHCPServer":  null,
+                                                  "DNSDomain":  null,
+                                                  "DNSHostName":  "SGIU-VM2",
+                                                  "DNSDomainSuffixSearchOrder":  [
+                                                                                     "MEX-LAB.com"
+                                                                                 ],
+                                                  "IPEnabled":  true,
+                                                  "IPAddress":  [
+                                                                    "10.1.0.22",
+                                                                    "fe80::8444:12d1:492e:1144"
+                                                                ],
+                                                  "DefaultIPGateway":  [
+                                                                           "10.1.1.1"
+                                                                       ],
+                                                  "IPSubnet":  [
+                                                                   "255.255.0.0",
+                                                                   "64"
+                                                               ],
+                                                  "MACAddress":  "00:15:5D:D6:DB:24",
+                                                  "PSComputerName":  "sgiu-vm2"
+                                              },
+                                              {
+                                                  "Index":  1,
+                                                  "Description":  "Microsoft Hyper-V Network Adapter",
+                                                  "DHCPEnabled":  false,
+                                                  "DHCPServer":  null,
+                                                  "DNSDomain":  null,
+                                                  "DNSHostName":  "SGIU-VM3",
+                                                  "DNSDomainSuffixSearchOrder":  [
+                                                                                     "MEX-LAB.com"
+                                                                                 ],
+                                                  "IPEnabled":  true,
+                                                  "IPAddress":  [
+                                                                    "10.1.0.23",
+                                                                    "fe80::6c64:396:64a6:2a25"
+                                                                ],
+                                                  "DefaultIPGateway":  [
+                                                                           "10.1.1.1"
+                                                                       ],
+                                                  "IPSubnet":  [
+                                                                   "255.255.0.0",
+                                                                   "64"
+                                                               ],
+                                                  "MACAddress":  "00:15:5D:D6:DB:92",
+                                                  "PSComputerName":  "sgiu-vm3"
+                                              },
+                                              {
+                                                  "Index":  1,
+                                                  "Description":  "Microsoft Hyper-V Network Adapter",
+                                                  "DHCPEnabled":  false,
+                                                  "DHCPServer":  null,
+                                                  "DNSDomain":  null,
+                                                  "DNSHostName":  "SGIU-VM4",
+                                                  "DNSDomainSuffixSearchOrder":  [
+                                                                                     "MEX-LAB.com"
+                                                                                 ],
+                                                  "IPEnabled":  true,
+                                                  "IPAddress":  [
+                                                                    "10.1.0.24",
+                                                                    "fe80::35e4:270d:6874:8c0d"
+                                                                ],
+                                                  "DefaultIPGateway":  [
+                                                                           "10.1.1.1"
+                                                                       ],
+                                                  "IPSubnet":  [
+                                                                   "255.255.0.0",
+                                                                   "64"
+                                                               ],
+                                                  "MACAddress":  "00:15:5D:B4:23:69",
+                                                  "PSComputerName":  "sgiu-vm4"
+                                              },
+                                              {
+                                                  "Index":  1,
+                                                  "Description":  "Microsoft Hyper-V Network Adapter",
+                                                  "DHCPEnabled":  false,
+                                                  "DHCPServer":  null,
+                                                  "DNSDomain":  null,
+                                                  "DNSHostName":  "SGIU-VM5",
+                                                  "DNSDomainSuffixSearchOrder":  [
+                                                                                     "MEX-LAB.com"
+                                                                                 ],
+                                                  "IPEnabled":  true,
+                                                  "IPAddress":  [
+                                                                    "10.1.0.25",
+                                                                    "fe80::957a:91d4:f541:4683"
+                                                                ],
+                                                  "DefaultIPGateway":  [
+                                                                           "10.1.1.1"
+                                                                       ],
+                                                  "IPSubnet":  [
+                                                                   "255.255.0.0",
+                                                                   "64"
+                                                               ],
+                                                  "MACAddress":  "00:15:5D:D6:DB:0A",
+                                                  "PSComputerName":  "sgiu-vm5"
+                                              }
+                                          ],
+    "Win32_NetworkConnection":  {
+
+                                },
+    "Win32_DesktopMonitor":  [
+                                 {
+                                     "DeviceID":  "DesktopMonitor1",
+                                     "Name":  "Generic PnP Monitor",
+                                     "Description":  "Generic PnP Monitor",
+                                     "MonitorManufacturer":  "(Standard monitor types)",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "DeviceID":  "DesktopMonitor1",
+                                     "Name":  "Generic PnP Monitor",
+                                     "Description":  "Generic PnP Monitor",
+                                     "MonitorManufacturer":  "(Standard monitor types)",
+                                     "PSComputerName":  "sgiu-vm2"
+                                 },
+                                 {
+                                     "DeviceID":  "DesktopMonitor1",
+                                     "Name":  "Generic PnP Monitor",
+                                     "Description":  "Generic PnP Monitor",
+                                     "MonitorManufacturer":  "(Standard monitor types)",
+                                     "PSComputerName":  "sgiu-vm3"
+                                 },
+                                 {
+                                     "DeviceID":  "DesktopMonitor1",
+                                     "Name":  "Generic PnP Monitor",
+                                     "Description":  "Generic PnP Monitor",
+                                     "MonitorManufacturer":  "(Standard monitor types)",
+                                     "PSComputerName":  "sgiu-vm4"
+                                 },
+                                 {
+                                     "DeviceID":  "DesktopMonitor1",
+                                     "Name":  "Generic PnP Monitor",
+                                     "Description":  "Generic PnP Monitor",
+                                     "MonitorManufacturer":  "(Standard monitor types)",
+                                     "PSComputerName":  "sgiu-vm5"
+                                 }
+                             ],
+    "Win32_VideoController":  [
+                                  {
+                                      "Name":  "Microsoft Hyper-V Video",
+                                      "Description":  "Microsoft Hyper-V Video",
+                                      "Status":  "OK",
+                                      "DeviceID":  "VideoController1",
+                                      "VideoMemoryType":  2,
+                                      "VideoProcessor":  null,
+                                      "AdapterCompatibility":  "Microsoft",
+                                      "DriverDate":  "\/Date(1150848000000)\/",
+                                      "DriverVersion":  "10.0.17763.1",
+                                      "PSComputerName":  "sgiu-vm1"
+                                  },
+                                  {
+                                      "Name":  "Microsoft Hyper-V Video",
+                                      "Description":  "Microsoft Hyper-V Video",
+                                      "Status":  "OK",
+                                      "DeviceID":  "VideoController1",
+                                      "VideoMemoryType":  2,
+                                      "VideoProcessor":  null,
+                                      "AdapterCompatibility":  "Microsoft",
+                                      "DriverDate":  "\/Date(1150848000000)\/",
+                                      "DriverVersion":  "10.0.17763.1",
+                                      "PSComputerName":  "sgiu-vm2"
+                                  },
+                                  {
+                                      "Name":  "Microsoft Hyper-V Video",
+                                      "Description":  "Microsoft Hyper-V Video",
+                                      "Status":  "OK",
+                                      "DeviceID":  "VideoController1",
+                                      "VideoMemoryType":  2,
+                                      "VideoProcessor":  null,
+                                      "AdapterCompatibility":  "Microsoft",
+                                      "DriverDate":  "\/Date(1150848000000)\/",
+                                      "DriverVersion":  "10.0.17763.1",
+                                      "PSComputerName":  "sgiu-vm3"
+                                  },
+                                  {
+                                      "Name":  "Microsoft Hyper-V Video",
+                                      "Description":  "Microsoft Hyper-V Video",
+                                      "Status":  "OK",
+                                      "DeviceID":  "VideoController1",
+                                      "VideoMemoryType":  2,
+                                      "VideoProcessor":  null,
+                                      "AdapterCompatibility":  "Microsoft",
+                                      "DriverDate":  "\/Date(1150848000000)\/",
+                                      "DriverVersion":  "10.0.17763.2145",
+                                      "PSComputerName":  "sgiu-vm4"
+                                  },
+                                  {
+                                      "Name":  "Microsoft Hyper-V Video",
+                                      "Description":  "Microsoft Hyper-V Video",
+                                      "Status":  "OK",
+                                      "DeviceID":  "VideoController1",
+                                      "VideoMemoryType":  2,
+                                      "VideoProcessor":  null,
+                                      "AdapterCompatibility":  "Microsoft",
+                                      "DriverDate":  "\/Date(1150848000000)\/",
+                                      "DriverVersion":  "10.0.17763.2145",
+                                      "PSComputerName":  "sgiu-vm5"
+                                  }
+                              ],
+    "Win32_ComputerSystem":  [
+                                 {
+                                     "Name":  "SGIU-VM1",
+                                     "Model":  "Virtual Machine",
+                                     "SystemFamily":  "Virtual Machine",
+                                     "SystemSKUNumber":  "None",
+                                     "SystemType":  "x64-based PC",
+                                     "Manufacturer":  "Microsoft Corporation",
+                                     "Status":  "OK",
+                                     "Description":  "AT/AT COMPATIBLE",
+                                     "CurrentTimeZone":  -480,
+                                     "DaylightInEffect":  false,
+                                     "EnableDaylightSavingsTime":  true,
+                                     "DNSHostName":  "SGIU-VM1",
+                                     "Domain":  "MEX-LAB.com",
+                                     "Workgroup":  null,
+                                     "PartOfDomain":  true,
+                                     "NumberOfLogicalProcessors":  16,
+                                     "NumberOfProcessors":  1,
+                                     "TotalPhysicalMemory":  8020549632,
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Name":  "SGIU-VM2",
+                                     "Model":  "Virtual Machine",
+                                     "SystemFamily":  "Virtual Machine",
+                                     "SystemSKUNumber":  "None",
+                                     "SystemType":  "x64-based PC",
+                                     "Manufacturer":  "Microsoft Corporation",
+                                     "Status":  "OK",
+                                     "Description":  "AT/AT COMPATIBLE",
+                                     "CurrentTimeZone":  -360,
+                                     "DaylightInEffect":  false,
+                                     "EnableDaylightSavingsTime":  true,
+                                     "DNSHostName":  "SGIU-VM2",
+                                     "Domain":  "MEX-LAB.com",
+                                     "Workgroup":  null,
+                                     "PartOfDomain":  true,
+                                     "NumberOfLogicalProcessors":  12,
+                                     "NumberOfProcessors":  1,
+                                     "TotalPhysicalMemory":  17178812416,
+                                     "PSComputerName":  "sgiu-vm2"
+                                 },
+                                 {
+                                     "Name":  "SGIU-VM3",
+                                     "Model":  "Virtual Machine",
+                                     "SystemFamily":  "Virtual Machine",
+                                     "SystemSKUNumber":  "None",
+                                     "SystemType":  "x64-based PC",
+                                     "Manufacturer":  "Microsoft Corporation",
+                                     "Status":  "OK",
+                                     "Description":  "AT/AT COMPATIBLE",
+                                     "CurrentTimeZone":  -360,
+                                     "DaylightInEffect":  false,
+                                     "EnableDaylightSavingsTime":  true,
+                                     "DNSHostName":  "SGIU-VM3",
+                                     "Domain":  "MEX-LAB.com",
+                                     "Workgroup":  null,
+                                     "PartOfDomain":  true,
+                                     "NumberOfLogicalProcessors":  4,
+                                     "NumberOfProcessors":  1,
+                                     "TotalPhysicalMemory":  8588877824,
+                                     "PSComputerName":  "sgiu-vm3"
+                                 },
+                                 {
+                                     "Name":  "SGIU-VM4",
+                                     "Model":  "Virtual Machine",
+                                     "SystemFamily":  "Virtual Machine",
+                                     "SystemSKUNumber":  "None",
+                                     "SystemType":  "x64-based PC",
+                                     "Manufacturer":  "Microsoft Corporation",
+                                     "Status":  "OK",
+                                     "Description":  "AT/AT COMPATIBLE",
+                                     "CurrentTimeZone":  -480,
+                                     "DaylightInEffect":  false,
+                                     "EnableDaylightSavingsTime":  true,
+                                     "DNSHostName":  "SGIU-VM4",
+                                     "Domain":  "MEX-LAB.com",
+                                     "Workgroup":  null,
+                                     "PartOfDomain":  true,
+                                     "NumberOfLogicalProcessors":  4,
+                                     "NumberOfProcessors":  1,
+                                     "TotalPhysicalMemory":  8588877824,
+                                     "PSComputerName":  "sgiu-vm4"
+                                 },
+                                 {
+                                     "Name":  "SGIU-VM5",
+                                     "Model":  "Virtual Machine",
+                                     "SystemFamily":  "Virtual Machine",
+                                     "SystemSKUNumber":  "None",
+                                     "SystemType":  "x64-based PC",
+                                     "Manufacturer":  "Microsoft Corporation",
+                                     "Status":  "OK",
+                                     "Description":  "AT/AT COMPATIBLE",
+                                     "CurrentTimeZone":  -480,
+                                     "DaylightInEffect":  false,
+                                     "EnableDaylightSavingsTime":  true,
+                                     "DNSHostName":  "SGIU-VM5",
+                                     "Domain":  "MEX-LAB.com",
+                                     "Workgroup":  null,
+                                     "PartOfDomain":  true,
+                                     "NumberOfLogicalProcessors":  32,
+                                     "NumberOfProcessors":  2,
+                                     "TotalPhysicalMemory":  17178812416,
+                                     "PSComputerName":  "sgiu-vm5"
+                                 }
+                             ],
+    "Win32_ComputerSystemProduct":  [
+                                        {
+                                            "Name":  "Virtual Machine",
+                                            "Version":  "Hyper-V UEFI Release v4.0",
+                                            "Description":  "Computer System Product",
+                                            "IdentifyingNumber":  "2403-5346-1393-1671-6963-6606-11",
+                                            "Vendor":  "Microsoft Corporation",
+                                            "PSComputerName":  "sgiu-vm1"
+                                        },
+                                        {
+                                            "Name":  "Virtual Machine",
+                                            "Version":  "Hyper-V UEFI Release v4.0",
+                                            "Description":  "Computer System Product",
+                                            "IdentifyingNumber":  "0170-9907-6391-1784-1613-8674-94",
+                                            "Vendor":  "Microsoft Corporation",
+                                            "PSComputerName":  "sgiu-vm2"
+                                        },
+                                        {
+                                            "Name":  "Virtual Machine",
+                                            "Version":  "Hyper-V UEFI Release v4.0",
+                                            "Description":  "Computer System Product",
+                                            "IdentifyingNumber":  "5483-1616-3900-5784-1433-7129-83",
+                                            "Vendor":  "Microsoft Corporation",
+                                            "PSComputerName":  "sgiu-vm3"
+                                        },
+                                        {
+                                            "Name":  "Virtual Machine",
+                                            "Version":  "Hyper-V UEFI Release v4.0",
+                                            "Description":  "Computer System Product",
+                                            "IdentifyingNumber":  "8654-0468-3198-4254-9121-0438-57",
+                                            "Vendor":  "Microsoft Corporation",
+                                            "PSComputerName":  "sgiu-vm4"
+                                        },
+                                        {
+                                            "Name":  "Virtual Machine",
+                                            "Version":  "Hyper-V UEFI Release v4.0",
+                                            "Description":  "Computer System Product",
+                                            "IdentifyingNumber":  "9252-1153-4793-5466-3857-6255-43",
+                                            "Vendor":  "Microsoft Corporation",
+                                            "PSComputerName":  "sgiu-vm5"
+                                        }
+                                    ],
+    "Win32_OperatingSystem":  [
+                                  {
+                                      "Caption":  "Microsoft Windows Server 2019 Standard",
+                                      "LocalDateTime":  "\/Date(1639873040489)\/",
+                                      "TotalVisibleMemorySize":  7832568,
+                                      "Version":  "10.0.17763",
+                                      "BuildNumber":  "17763",
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "OSArchitecture":  "64-bit",
+                                      "SystemDrive":  "C:",
+                                      "PSComputerName":  "sgiu-vm1"
+                                  },
+                                  {
+                                      "Caption":  "Microsoft Windows Server 2019 Standard",
+                                      "LocalDateTime":  "\/Date(1639873040693)\/",
+                                      "TotalVisibleMemorySize":  16776184,
+                                      "Version":  "10.0.17763",
+                                      "BuildNumber":  "17763",
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "OSArchitecture":  "64-bit",
+                                      "SystemDrive":  "C:",
+                                      "PSComputerName":  "sgiu-vm2"
+                                  },
+                                  {
+                                      "Caption":  "Microsoft Windows Server 2019 Standard",
+                                      "LocalDateTime":  "\/Date(1639873040711)\/",
+                                      "TotalVisibleMemorySize":  8387576,
+                                      "Version":  "10.0.17763",
+                                      "BuildNumber":  "17763",
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "OSArchitecture":  "64-bit",
+                                      "SystemDrive":  "C:",
+                                      "PSComputerName":  "sgiu-vm3"
+                                  },
+                                  {
+                                      "Caption":  "Microsoft Windows Server 2019 Standard",
+                                      "LocalDateTime":  "\/Date(1639873040489)\/",
+                                      "TotalVisibleMemorySize":  8387576,
+                                      "Version":  "10.0.17763",
+                                      "BuildNumber":  "17763",
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "OSArchitecture":  "64-bit",
+                                      "SystemDrive":  "C:",
+                                      "PSComputerName":  "sgiu-vm4"
+                                  },
+                                  {
+                                      "Caption":  "Microsoft Windows Server 2019 Standard",
+                                      "LocalDateTime":  "\/Date(1639873040700)\/",
+                                      "TotalVisibleMemorySize":  16776184,
+                                      "Version":  "10.0.17763",
+                                      "BuildNumber":  "17763",
+                                      "Manufacturer":  "Microsoft Corporation",
+                                      "OSArchitecture":  "64-bit",
+                                      "SystemDrive":  "C:",
+                                      "PSComputerName":  "sgiu-vm5"
+                                  }
+                              ],
+    "Win32_QuickFixEngineering":  [
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1566882000000)\/",
+                                                              "DateTime":  "Tuesday, August 27, 2019 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4462930",
+                                          "PSComputerName":  "sgiu-vm1"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1566882000000)\/",
+                                                              "DateTime":  "Tuesday, August 27, 2019 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4503308",
+                                          "PSComputerName":  "sgiu-vm1"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1566882000000)\/",
+                                                              "DateTime":  "Tuesday, August 27, 2019 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4512937",
+                                          "PSComputerName":  "sgiu-vm1"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4561600",
+                                          "PSComputerName":  "sgiu-vm1"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4566424",
+                                          "PSComputerName":  "sgiu-vm1"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4570720",
+                                          "PSComputerName":  "sgiu-vm1"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4571748",
+                                          "PSComputerName":  "sgiu-vm1"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1566882000000)\/",
+                                                              "DateTime":  "Tuesday, August 27, 2019 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4512937",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1626498000000)\/",
+                                                              "DateTime":  "Saturday, July 17, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4535680",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4561600",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4566424",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1637042400000)\/",
+                                                              "DateTime":  "Tuesday, November 16, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4577586",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1637042400000)\/",
+                                                              "DateTime":  "Tuesday, November 16, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4589208",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1626498000000)\/",
+                                                              "DateTime":  "Saturday, July 17, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5003646",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1626411600000)\/",
+                                                              "DateTime":  "Friday, July 16, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5003711",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1637042400000)\/",
+                                                              "DateTime":  "Tuesday, November 16, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5006368",
+                                          "PSComputerName":  "sgiu-vm2"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1566882000000)\/",
+                                                              "DateTime":  "Tuesday, August 27, 2019 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4512937",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1618290000000)\/",
+                                                              "DateTime":  "Tuesday, April 13, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4535680",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4566424",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1618290000000)\/",
+                                                              "DateTime":  "Tuesday, April 13, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4577586",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1623819600000)\/",
+                                                              "DateTime":  "Wednesday, June 16, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4589208",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1618290000000)\/",
+                                                              "DateTime":  "Tuesday, April 13, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5000859",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1618894800000)\/",
+                                                              "DateTime":  "Tuesday, April 20, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5001404",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1621227600000)\/",
+                                                              "DateTime":  "Monday, May 17, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5003243",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1623819600000)\/",
+                                                              "DateTime":  "Wednesday, June 16, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5003541",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1623819600000)\/",
+                                                              "DateTime":  "Wednesday, June 16, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5003703",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1623819600000)\/",
+                                                              "DateTime":  "Wednesday, June 16, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5003711",
+                                          "PSComputerName":  "sgiu-vm3"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1566882000000)\/",
+                                                              "DateTime":  "Tuesday, August 27, 2019 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4512937",
+                                          "PSComputerName":  "sgiu-vm4"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4535680",
+                                          "PSComputerName":  "sgiu-vm4"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4566424",
+                                          "PSComputerName":  "sgiu-vm4"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4589208",
+                                          "PSComputerName":  "sgiu-vm4"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5005701",
+                                          "PSComputerName":  "sgiu-vm4"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5006368",
+                                          "PSComputerName":  "sgiu-vm4"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5006754",
+                                          "PSComputerName":  "sgiu-vm4"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1637992800000)\/",
+                                                              "DateTime":  "Saturday, November 27, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5007206",
+                                          "PSComputerName":  "sgiu-vm4"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1566882000000)\/",
+                                                              "DateTime":  "Tuesday, August 27, 2019 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4512937",
+                                          "PSComputerName":  "sgiu-vm5"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4535680",
+                                          "PSComputerName":  "sgiu-vm5"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1599195600000)\/",
+                                                              "DateTime":  "Friday, September 4, 2020 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4566424",
+                                          "PSComputerName":  "sgiu-vm5"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB4589208",
+                                          "PSComputerName":  "sgiu-vm5"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5005701",
+                                          "PSComputerName":  "sgiu-vm5"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5006368",
+                                          "PSComputerName":  "sgiu-vm5"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5006744",
+                                          "PSComputerName":  "sgiu-vm5"
+                                      },
+                                      {
+                                          "InstalledOn":  {
+                                                              "value":  "\/Date(1635397200000)\/",
+                                                              "DateTime":  "Thursday, October 28, 2021 12:00:00 AM"
+                                                          },
+                                          "HotFixID":  "KB5006754",
+                                          "PSComputerName":  "sgiu-vm5"
+                                      }
+                                  ],
+    "Win32_StartupCommand":  [
+                                 {
+                                     "Name":  "Axon Export Manager",
+                                     "Command":  "C:\\PROGRA~1\\MILEST~1\\Services\\AXONEX~1\\AXONEX~2.EXE ",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Name":  "Management Server Manager",
+                                     "Command":  "C:\\PROGRA~1\\MILEST~1\\XPROTE~2\\VIDEOO~2.EXE ",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Name":  "MIP SDK Tray Manager",
+                                     "Command":  "C:\\Program Files\\Milestone\\MIPSDK\\Tools\\TrayManager\\VideoOS.MIPSDK.TrayManager.exe",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Name":  "Recording Server Manager",
+                                     "Command":  "C:\\PROGRA~1\\MILEST~1\\XPROTE~3\\VIDEOO~4.EXE ",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Name":  "SecurityHealth",
+                                     "Command":  "%windir%\\system32\\SecurityHealthSystray.exe",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Name":  "XProtect Event Server Manager",
+                                     "Command":  "C:\\PROGRA~1\\MILEST~1\\XP7C7E~1\\VIDEOO~1.EXE ",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Name":  "XProtect Mobile Server Manager",
+                                     "Command":  "C:\\PROGRA~1\\MILEST~1\\XP8D32~1\\VIDEOO~2.EXE ",
+                                     "PSComputerName":  "sgiu-vm1"
+                                 },
+                                 {
+                                     "Name":  "Recording Server Manager",
+                                     "Command":  "C:\\PROGRA~1\\MILEST~1\\XPROTE~1\\VIDEOO~4.EXE ",
+                                     "PSComputerName":  "sgiu-vm2"
+                                 },
+                                 {
+                                     "Name":  "SecurityHealth",
+                                     "Command":  "%windir%\\system32\\SecurityHealthSystray.exe",
+                                     "PSComputerName":  "sgiu-vm2"
+                                 },
+                                 {
+                                     "Name":  "Milestone ACM Server Tray",
+                                     "Command":  "C:\\Windows\\Installer\\{7E52E26F-BC11-4D8B-B25B-007007AE47D0}\\CfgClientIcon.exe ",
+                                     "PSComputerName":  "sgiu-vm3"
+                                 },
+                                 {
+                                     "Name":  "SecurityHealth",
+                                     "Command":  "%windir%\\system32\\SecurityHealthSystray.exe",
+                                     "PSComputerName":  "sgiu-vm3"
+                                 },
+                                 {
+                                     "Name":  "Recording Server Manager",
+                                     "Command":  "C:\\PROGRA~1\\MILEST~1\\XPROTE~2\\VIDEOO~4.EXE ",
+                                     "PSComputerName":  "sgiu-vm4"
+                                 },
+                                 {
+                                     "Name":  "SecurityHealth",
+                                     "Command":  "%windir%\\system32\\SecurityHealthSystray.exe",
+                                     "PSComputerName":  "sgiu-vm4"
+                                 },
+                                 {
+                                     "Name":  "Recording Server Manager",
+                                     "Command":  "C:\\PROGRA~1\\MILEST~1\\XPROTE~1\\VIDEOO~4.EXE ",
+                                     "PSComputerName":  "sgiu-vm5"
+                                 },
+                                 {
+                                     "Name":  "SecurityHealth",
+                                     "Command":  "%windir%\\system32\\SecurityHealthSystray.exe",
+                                     "PSComputerName":  "sgiu-vm5"
+                                 }
+                             ]
+}
