@@ -1,249 +1,332 @@
+function Get-StatusFromValue {
+    Param($SV)
+    switch ($SV) {
+        0 { "Disconnected" }
+        1 { "Connecting" }
+        2 { "Connected" }
+        3 { "Disconnecting" }
+        4 { "Hardware not present" }
+        5 { "Hardware disabled" }
+        6 { "Hardware malfunction" }
+        7 { "Media disconnected" }
+        8 { "Authenticating" }
+        9 { "Authentication succeeded" }
+        10 { "Authentication failed" }
+        11 { "Invalid Address" }
+        12 { "Credentials Required" }
+        Default { "Not connected" }
+    }
+}  
+function Get-VmsStorageInfo {
+    [CmdletBinding()]
+    param(
+        [Parameter(ValueFromPipeline)]
+        [VideoOS.Platform.ConfigurationItems.RecordingServer[]]
+        $RecordingServer
+    )
 
-Write-Progress -Activity "Connecting to Servers" -Status "1% Complete:" -PercentComplete 1
-$User = "MEX-LAB\SGIU" 
-$PWord = ConvertTo-SecureString -String "Milestone1$" -AsPlainText -Force 
-$Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $PWord
-$session = New-CimSession -ComputerName sgiu-vm1, sgiu-vm2, sgiu-vm3, sgiu-vm4, sgiu-vm5 -Credential $Credential 
+    process {
+        if ($null -eq $RecordingServer -or $RecordingServer.Count -eq 0) {
+            $RecordingServer = Get-RecordingServer
+        }
+        foreach ($recorder in $RecordingServer) {
+            foreach ($storage in $recorder | Get-VmsStorage) {
+                $info = $storage.ReadStorageInformation()
+                $usedSpace = $info.GetProperty('UsedSpace') -as [double]
+                $lockedUsedSpace = 0
+                if ($info.GetPropertyKeys() -contains 'LockedUsedSpace') {
+                    $lockedUsedSpace = $info.GetProperty('LockedUsedSpace') -as [double]
+                }
+
+                [pscustomobject]@{
+                    RecordingServer = $recorder.Name
+                    Name            = $storage.Name
+                    Path            = $storage.DiskPath
+                    RetainMinutes   = $storage.RetainMinutes
+                    MaxSize         = $storage.MaxSize
+                    UsedSpace       = $usedSpace * 1MB
+                    LockedUsedSpace = $lockedUsedSpace * 1MB
+                    Signing         = $storage.Signing
+                }
+                Remove-Variable info, usedSpace, lockedUsedSpace
+
+                foreach ($archive in $storage | Get-VmsArchiveStorage) {
+                    $info = $archive.ReadArchiveStorageInformation()
+                    $usedSpace = $info.GetProperty('UsedSpace') -as [double]
+                    $lockedUsedSpace = 0
+                    if ($info.GetPropertyKeys() -contains 'LockedUsedSpace') {
+                        $lockedUsedSpace = $info.GetProperty('LockedUsedSpace') -as [double]
+                    }
+
+                    [pscustomobject]@{
+                        RecordingServer = $recorder.Name
+                        Name            = $archive.Name
+                        Path            = $archive.DiskPath
+                        RetainMinutes   = $archive.RetainMinutes
+                        MaxSize         = $archive.MaxSize
+                        UsedSpace       = $usedSpace * 1MB
+                        LockedUsedSpace = $lockedUsedSpace * 1MB
+                        Signing         = $archive.Signing
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+# Write-Progress -Activity "Connecting to Servers" -Status "1% Complete:" -PercentComplete 1
+# $User = "MEX-LAB\SGIU" 
+# $PWord = ConvertTo-SecureString -String "Milestone1$" -AsPlainText -Force 
+# $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $PWord
+# $session = New-CimSession -ComputerName sgiu-vm1, sgiu-vm2, sgiu-vm3, sgiu-vm4, sgiu-vm5 -Credential $Credential 
 
 $inc = 3; $i = 0
 
-# Milestone Installed Services
-$i += $inc; Write-Progress -Activity "Collecting Data - Milestone Installed Services" -Status "$i% Complete:" -PercentComplete $i
+
+######################################################################################################################################################################################
+# Aplication - Milestone Installed Services - Win32_Volume
+######################################################################################################################################################################################
+
+$i += $inc; Write-Progress -Activity "Collecting Data - Aplication - Milestone Installed Services" -Status "$i% Complete:" -PercentComplete $i
+
 $Win32_Service = Get-CimInstance -Query "Select * from Win32_Service Where Name like 'Milestone%' or Name like 'VideoOS%'" -CimSession $session `
 | Select-Object PSComputerName, Name, Description, State, StartMode, StartName, PathName `
 | Sort-Object -Property PSComputerName, Name 
 
+######################################################################################################################################################################################
+# Aplication - Milestone Installed products - Win32_Volume
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - Aplication - Milestone Installed products" -Status "$i% Complete:" -PercentComplete $i
 
-# Milestone Installed products 
-$i += $inc; Write-Progress -Activity "Collecting Data - Milestone Installed products" -Status "$i% Complete:" -PercentComplete $i
 $Win32_Product = Get-CIMInstance -ClassName Win32_Product -Filter "Vendor like '%Milestone Systems%'" -CimSession $session `
 | Select-Object PSComputerName, Name, Vendor, Version, InstallDate `
 | Sort-Object -Property PSComputerName, Name 
 
+$ManagementServer = $Win32_Product | Group-Object -Property Name `
+| Where-Object Name -like '*Management Server*' `
+| Select-Object -ExpandProperty Group `
+| Sort-Object -Property PSComputerName, Name 
+
+$RecordingServers = $Win32_Product | Group-Object -Property Name `
+| Where-Object Name -like '*Recording*' `
+| Select-Object -ExpandProperty Group `
+| Sort-Object -Property PSComputerName, Name 
+
+$DriverPacks = $Win32_Product | Group-Object -Property Name `
+| Where-Object Name -like '*Device Pack*' `
+| Select-Object -ExpandProperty Group `
+| Sort-Object -Property PSComputerName, Name 
+
+$EventServerServers = $Win32_Product | Group-Object -Property Name `
+| Where-Object Name -like '*Event Server*' `
+| Select-Object -ExpandProperty Group `
+| Sort-Object -Property PSComputerName, Name 
+
+$MobileServers = $Win32_Product | Group-Object -Property Name `
+| Where-Object Name -like '*XProtect Mobile*' `
+| Select-Object -ExpandProperty Group `
+
+$DataCollectors = $Win32_Product | Group-Object -Property Name `
+| Where-Object Name -like '*Data Collector*' `
+| Select-Object -ExpandProperty Group `
+| Sort-Object -Property PSComputerName, Name 
+
+$otherServers = $Win32_Product | Group-Object -Property Name | Where-Object { 
+    ($_.Name -notlike "*Management Server*" `
+        -and $_.Name -notlike "*Recording*" `
+        -and $_.Name -notlike "*Device Pack*" `
+        -and $_.Name -notlike "*Data Collector*" `
+        -and $_.Name -notlike "*Event Server*" `
+        -and $_.Name -notlike "*XProtect Mobile*" `
+    ) } | Select-Object -ExpandProperty Group `
+    | Sort-Object -Property PSComputerName, Name 
+
+
+
+
+
 
 ######################################################################################################################################################################################
-#Storage 
+# System - Computer - Win32_ComputerSystem
 ######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - System - Computer" -Status "$i% Complete:" -PercentComplete $i
 
-# Drivers information 
-$i += $inc; Write-Progress -Activity "Collecting Data - Disk Drives" -Status "$i% Complete:" -PercentComplete $i
-$Win32_DiskDrive = Get-CIMInstance -ClassName Win32_DiskDrive -CimSession $session `
-| Select-Object  PSComputerName, Index, Model, Partitions, InterfaceType, @{Name = "Size_GB"; Expression = { [math]::round($_.Size / 1GB, 2) } } `
-| Sort-Object -Property PSComputerName, Index 
+$Win32_ComputerSystem = Get-CIMInstance -ClassName Win32_ComputerSystem -CimSession $session  `
+| Select-Object PSComputerName, Name, Model, SystemFamily, SystemType, Manufacturer  `
+    , Domain, Workgroup, @{Name = "TotalPhysicalMemory_GB"; Expression = { [math]::round($_.TotalPhysicalMemory / 1GB, 2) } } `
+    , Status `
+| Sort-Object -Property PSComputerName, Name 
 
+######################################################################################################################################################################################
+# Operating System - Win32_OperatingSystem
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - Operating System" -Status "$i% Complete:" -PercentComplete $i
 
-# # Disk Partitions 
-# $i += $inc; Write-Progress -Activity "Collecting Data - Disk Partitions" -Status "$i% Complete:" -PercentComplete $i
-# $Win32_DiskPartition = Get-CIMInstance -ClassName Win32_DiskPartition -CimSession $session  `
-# | Select-Object PSComputerName, Index, Name, @{Name = "Size_GB"; Expression = { [math]::round($_.Size / 1GB, 2) } } `
-#     , BlockSize, NumberOfBlocks, Bootable, PrimaryPartition, BootPartition, Type `
-# | Where-Object Type -eq 'GPT: Basic Data' `
-# | Sort-Object -Property PSComputerName, Index 
+$Win32_OperatingSystem = Get-CIMInstance -ClassName Win32_OperatingSystem -CimSession $session  `
+| Select-Object PSComputerName, Caption `
+    , @{Name = "TotalVisibleMemo_GB"; Expression = { [math]::round($_.TotalVisibleMemorySize / 1MB, 2) } } `
+    , Version , BuildNumber, Manufacturer, OSArchitecture, SystemDrive `
+| Sort-Object -Property PSComputerName, Name 
 
+######################################################################################################################################################################################
+# System - CPU - Win32_Processor
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - System - CPU" -Status "$i% Complete:" -PercentComplete $i
 
-# # Logical Disks 
-# $i += $inc; Write-Progress -Activity "Collecting Data - Logical Disks" -Status "$i% Complete:" -PercentComplete $i
-# $Win32_LogicalDisk = Get-CIMInstance -ClassName Win32_LogicalDisk -CimSession $session  `
-# | Select-Object PSComputerName, Name,VolumeName, Description, @{Name = "FreeSpace_GB"; Expression = { [math]::round($_.FreeSpace / 1GB, 2) } } `
-#     , @{Name = "Size_GB"; Expression = { [math]::round($_.Size / 1GB, 2) } } `
-#     , FileSystem, BlockSize, Compressed, MediaType `
-# | Where-Object FileSystem -ne $null `
-# | Sort-Object -Property PSComputerName, Name *
+$Win32_Processor = Get-CIMInstance -ClassName Win32_Processor -CimSession $session `
+| Select-Object PSComputerName, DeviceID, NumberOfCores, NumberOfLogicalProcessors `
+    , LoadPercentage, CurrentClockSpeed, Name, Description, Manufacturer, PartNumber, Status `
+| Sort-Object -Property PSComputerName, DeviceID 
 
-# Volumes 
+######################################################################################################################################################################################
+# Storage - Volumes - Win32_Volume
+######################################################################################################################################################################################
 $i += $inc; Write-Progress -Activity "Collecting Data - Volumes" -Status "$i% Complete:" -PercentComplete $i
+
 $Win32_Volume = Get-CIMInstance -ClassName Win32_Volume -CimSession $session  `
-| Select-Object  PSComputerName, DriveLetter, Label, Capacity, @{Name = "Capacity_GB"; Expression = { [math]::round($_.Capacity / 1GB, 2) } } `
+| Select-Object  PSComputerName, DriveLetter, Label `
+    , @{Name = "Capacity_GB"; Expression = { [math]::round($_.Capacity / 1GB, 2) } } `
     , @{Name = "FreeSpace_GB"; Expression = { [math]::round($_.FreeSpace / 1GB, 2) } } `
-    , BlockSize, IndexingEnabled, Compressed, FileSystem , SystemVolume  `
+    , BlockSize, IndexingEnabled, Compressed      `
 | Where-Object { $_.DriveLetter -ne $null -and $_.BlockSize -ne $null } `
 | Sort-Object -Property PSComputerName, DriveLetter 
 
+######################################################################################################################################################################################
+# System - Video Controller - Win32_VideoController
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Dat - System - Video Controller" -Status "$i% Complete:" -PercentComplete $i
 
+$Win32_VideoController = Get-CIMInstance -ClassName Win32_VideoController -CimSession $session  `
+| Select-Object PSComputerName, Name, Description, DeviceID `
+    , @{Name = "AdapterRAM_GB"; Expression = { [math]::round($_.AdapterRAM / 1GB, 2) } } `
+    , VideoProcessor, AdapterCompatibility, DriverVersion , Status `
+| Sort-Object -Property PSComputerName, Name 
 
 ######################################################################################################################################################################################
-#Hardware
+# System - Network - Win32_NetworkAdapter
 ######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - System - Network" -Status "$i% Complete:" -PercentComplete $i
 
-
-
-# Base Boared 
-$i += $inc; Write-Progress -Activity "Collecting Data - " -Status "$i% Complete:" -PercentComplete $i
-$Win32_BaseBoard = Get-CIMInstance -ClassName Win32_BaseBoard -CimSession $session  `
-| Select-Object Name, Manufacturer, SerialNumber, Version, Product, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-# BIOS
-$Win32_BIOS = Get-CIMInstance -ClassName Win32_BIOS -CimSession $session  `
-| Select-Object Name, Manufacturer, BIOSVersion, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-# Memory
-$Win32_CacheMemory = Get-CIMInstance -ClassName Win32_CacheMemory -CimSession $session `
-| Select-Object BlockSize, CacheSpeed, InstalledSize, Level, MaxCacheSize, NumberOfBlocks, Status, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-$Win32_PhysicalMemory = Get-CIMInstance -ClassName Win32_PhysicalMemory -CimSession $session `
-| Select-Object Tag, BankLabel, Capacity, @{Name = "Capacity_GB"; Expression = { [math]::round($_.Capacity / 1GB, 2) } } `
-    , Speed, ConfiguredClockSpeed, ConfiguredVoltage, DataWidth, PartNumber, SerialNumber, PSComputerName `
-| Sort-Object -Property PSComputerName, Tag 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-#CPU
-$Win32_Processor = Get-CIMInstance -ClassName Win32_Processor -CimSession $session `
-| Select-Object DeviceID, Name, Description, Manufacturer, NumberOfCores, NumberOfLogicalProcessors, `
-    LoadPercentage, CurrentClockSpeed, MaxClockSpeed, CurrentVoltage, VoltageCaps, `
-    L2CacheSize, L2CacheSpeed, L3CacheSize, L3CacheSpeed, PartNumber, Status, PSComputerName `
-| Sort-Object -Property PSComputerName, DeviceID 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-#GPU
-$CIM_VideoController = Get-CimInstance -ClassName CIM_VideoController -CimSession $session `
-| Select-Object Name, Status, DeviceID, VideoProcessor, AdapterCompatibility, AdapterRAM, DriverDate, DriverVersion, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-#Enclosure
-$Win32_SystemEnclosure = Get-CIMInstance -ClassName Win32_SystemEnclosure -CimSession $session  `
-| Select-Object Manufacturer, model, SerialNumber, PSComputerName `
-| Sort-Object -Property PSComputerName 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-#Network
 $Win32_NetworkAdapter = Get-CIMInstance -ClassName Win32_NetworkAdapter -CimSession $session  `
-| Select-Object DeviceID, Name, ProductName, Manufacturer, Speed, AdapterType, MACAddress, `
-    NetConnectionID, NetConnectionStatus, NetEnabled, PhysicalAdapter, PSComputerName `
+| Select-Object PSComputerName, DeviceID, Name, ProductName, Manufacturer  `
+    , @{Name = "Speed_mbps"; Expression = { [math]::round($_.Speed / 1000000, 2) } } `
+    , AdapterType, MACAddress, NetConnectionID, NetEnabled, PhysicalAdapter `
+    , @{Name = "NetConnectionStatus"; Expression = { Get-StatusFromValue -SV $_.NetConnectionStatus } } `
 | Where-Object { $_.MACAddress -ne $null -and $_.NetConnectionID -ne $null } `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
+| Sort-Object -Property PSComputerName, Name
+    
+######################################################################################################################################################################################
+# System - Network Adapter - Win32_NetworkAdapterConfiguration
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - System - Network Adapter Configuration" -Status "$i% Complete:" -PercentComplete $i
 
 $Win32_NetworkAdapterConfiguration = Get-CIMInstance -ClassName Win32_NetworkAdapterConfiguration -CimSession $session `
-| Select-Object Index, Description, DHCPEnabled, DHCPServer, DNSDomain, DNSHostName, DNSDomainSuffixSearchOrder, IPEnabled, `
-    IPAddress, DefaultIPGateway, IPSubnet, MACAddress, PSComputerName `
+| Select-Object PSComputerName, Index, Description, IPAddress, DefaultIPGateway, IPSubnet, MACAddress `
 | Where-Object { $_.IPAddress -ne $null } `
 | Sort-Object -Property PSComputerName, Index 
 
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-$Win32_NetworkConnection = Get-CIMInstance -ClassName Win32_NetworkConnection -CimSession $session `
-| Select-Object name, Status, LocalName, RemoteName, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-#Display
-$Win32_DesktopMonitor = Get-CIMInstance -ClassName Win32_DesktopMonitor -CimSession $session  `
-| Select-Object DeviceID, Name, Description, MonitorManufacturer, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-$Win32_VideoController = Get-CIMInstance -ClassName Win32_VideoController -CimSession $session  `
-| Select-Object Name, Description, Status, DeviceID, VideoMemoryType, VideoProcessor, AdapterCompatibility, `
-    DriverDate, DriverVersion, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-# OPERATING SYSTEM 
-$Win32_ComputerSystem = Get-CIMInstance -ClassName Win32_ComputerSystem -CimSession $session  `
-| Select-Object Name, Model, SystemFamily, SystemSKUNumber, SystemType, Manufacturer, Status, Description, `
-    CurrentTimeZone, DaylightInEffect, EnableDaylightSavingsTime, DNSHostName, Domain, Workgroup, PartOfDomain, `
-    NumberOfLogicalProcessors, NumberOfProcessors, TotalPhysicalMemory, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-$Win32_ComputerSystemProduct = Get-CIMInstance -ClassName Win32_ComputerSystemProduct -CimSession $session  `
-| Select-Object Name, Version, Description, IdentifyingNumber, Vendor, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-$Win32_OperatingSystem = Get-CIMInstance -ClassName Win32_OperatingSystem -CimSession $session  `
-| Select-Object Caption, LocalDateTime, TotalVisibleMemorySize, Version, BuildNumber, Manufacturer, OSArchitecture, SystemDrive, PSComputerName `
-| Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
+######################################################################################################################################################################################
+# Operating System - Updates - Win32_QuickFixEngineering
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - Operating System - Updates" -Status "$i% Complete:" -PercentComplete $i
 
 $Win32_QuickFixEngineering = Get-CIMInstance -ClassName Win32_QuickFixEngineering -CimSession $session `
-| Select-Object InstalledOn, HotFixID, PSComputerName `
+| Select-Object PSComputerName, InstalledOn, HotFixID `
 | Sort-Object -Property PSComputerName, HotFixID 
 
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
+######################################################################################################################################################################################
+# Operating System - Start Commands  - Win32_StartupCommand
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - Operating System - Start Commands" -Status "$i% Complete:" -PercentComplete $i
 
 $Win32_StartupCommand = Get-CIMInstance -ClassName Win32_StartupCommand -CimSession $session `
-| Select-Object Name, Command, PSComputerName `
+| Select-Object PSComputerName, Name, Command `
 | Sort-Object -Property PSComputerName, Name 
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
-
-
 
 # MILESTONE PS TOOLS
 
 #Connect-ManagementServer -ServerAddress http://10.1.0.21/ -Credential $Credential -SecureOnly false -AcceptEula
 #Connect-ManagementServer -ShowDialog
 
+######################################################################################################################################################################################
+# VMS - Licensed Products  - Get-LicensedProducts
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - Operating System - Start Commands" -Status "$i% Complete:" -PercentComplete $i
+
+$licencedProducts = Get-LicensedProducts `
+| Select-Object ProductDisplayName, Slc, ExpirationDate, CarePlus, CarePremium, Name, DisplayName
+
+######################################################################################################################################################################################
+# VMS - Licensed Products  - Get-LicensedProducts
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Collecting Data - Operating System - Start Commands" -Status "$i% Complete:" -PercentComplete $i
+
+$licenceDetails = Get-LicenseDetails `
+| Select-Object LicenseType, Activated, ChangesWithoutActivation, InGrace, GraceExpired , NotLicensed, Note
 
 
-$licencedProducts = Get-LicensedProducts | Select-Object ProductDisplayName, Slc, ExpirationDate, CarePlus, CarePremium, Name, DisplayName
+######################################################################################################################################################################################
+# VMS - Get Storage Usage 
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "VMS - Get Storage Usage" -Status "$i% Complete:" -PercentComplete $i
+
+function Convert {
+    Param($RetainMinutes)
+    
+    $ts = New-TimeSpan -Minutes $RetainMinutes
+    if ($ts.TotalDays -lt 1) {
+        $ts.TotalHours.ToString() + " Hours" 
+    }
+    else { $ts.TotalDays.ToString() + " Days" }
+}  
+
+#$storageInforation = (Get-RecordingServer)[0] `
+$storageInforation = Get-RecordingServer `
+| Get-VmsStorageInfo `
+| Select-Object RecordingServer, Name  `
+    , @{Name = "Retain"; Expression = { Convert($_.RetainMinutes) } }`
+    , @{Name = "MaxSize_GB"; Expression = { [math]::round($_.MaxSize / 1KB, 2) } } `
+    , @{Name = "UsedSpace_GB"; Expression = { [math]::round($_.UsedSpace / 1GB, 2) } } `
+    , @{Name = "UsedSpaca_%"; Expression = { (($_.UsedSpace / 1GB) / ($_.MaxSize / 1KB)).tostring("P") } } `
+    , LockedUsedSpace, Path
 
 
-$licenceDetails = Get-LicenseDetails | Select-Object LicenseType, Activated, ChangesWithoutActivation, InGrace, GraceExpired , NotLicensed, Note
 
+
+######################################################################################################################################################################################
+# Build output and save 
+######################################################################################################################################################################################
 
 $obj = [pscustomobject]@{
-
+    StorageInforation                 = $storageInforation
+    
     LicencedProducts                  = $licencedProducts 
     LicenceDetails                    = $licenceDetails 
-
     Win32_Service                     = $Win32_Service
-    Win32_Product                     = $Win32_Product
 
-    Win32_DiskDrive                   = $Win32_DiskDrive
-    # Win32_DiskPartition               = $Win32_DiskPartition
-    # Win32_LogicalDisk                 = $Win32_LogicalDisk
-    Win32_Volume                      = $Win32_Volume
+    #Win32_Product                     = $Win32_Product
+    ManagementServer                  = $ManagementServer
+    RecordingServers                  = $RecordingServers 
+    EventServerServers                = $EventServerServers
+    MobileServers                     = $MobileServers
+    DriverPacks                       = $DriverPacks
+    DataCollectors                    = $DataCollectors
+    OtheServers                       = $otheServers
+   
 
-    Win32_BaseBoard                   = $Win32_BaseBoard
-    Win32_BIOS                        = $Win32_BIOS
-    Win32_CacheMemory                 = $Win32_CacheMemory
-    Win32_PhysicalMemory              = $Win32_PhysicalMemory
-
+    Win32_ComputerSystem              = $Win32_ComputerSystem
+    Win32_OperatingSystem             = $Win32_OperatingSystem
     Win32_Processor                   = $Win32_Processor
-    CIM_VideoController               = $CIM_VideoController
 
+    Win32_Volume                      = $Win32_Volume
+    
 
-    Win32_SystemEnclosure             = $Win32_SystemEnclosure
-
+    Win32_VideoController             = $Win32_VideoController
     Win32_NetworkAdapter              = $Win32_NetworkAdapter
     Win32_NetworkAdapterConfiguration = $Win32_NetworkAdapterConfiguration
-    Win32_NetworkConnection           = $Win32_NetworkConnection
-    Win32_DesktopMonitor              = $Win32_DesktopMonitor
-    Win32_VideoController             = $Win32_VideoController
-    Win32_ComputerSystem              = $Win32_ComputerSystem
-    
-    Win32_ComputerSystemProduct       = $Win32_ComputerSystemProduct
-    Win32_OperatingSystem             = $Win32_OperatingSystem
     Win32_QuickFixEngineering         = $Win32_QuickFixEngineering
     Win32_StartupCommand              = $Win32_StartupCommand
 }
-
-
-
-
-$i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i
 
 $obj | ConvertTo-Json -Depth 100 | Set-Content C:\Users\sgiu\source\repos\Electron-MHC\obj.json

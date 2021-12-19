@@ -39,11 +39,10 @@ function build_accordion(data, descriptions) {
             .attr('id', `heading_${e}`)
             .appendTo(accordion_item)
 
-        const item_button = document.createElement('button');
-
         const des = e
 //      const des = descriptions[e]?.Spanish.Title ? descriptions[e]?.Spanish.Title : e /// DEBUG MODE ON
 
+        const item_button = document.createElement('button');
         $(item_button).addClass("accordion-button")
             .attr({
                 'type': `button`,
@@ -59,7 +58,9 @@ function build_accordion(data, descriptions) {
             .addClass("collapse")
             .addClass("show")
             .attr({
-                'id': `collapse_${e}`, 'aria-labelledby': `heading_${e}`, 'data-bs-parent': '#accordion',
+                'id': `collapse_${e}`,
+                'aria-labelledby': `heading_${e}`,
+                //'data-bs-parent': '#accordion',
             }).appendTo(accordion_item)
 
         const item_body = document.createElement('div');
@@ -83,6 +84,9 @@ function show_description(e, descriptions, item_body) {
 
 
 function show_table(e, o, item_body) {
+
+    o = Array.isArray(o)?o:[o];
+
     const table = document.createElement('table');
     $(table).addClass("table")
         .addClass("table-hover")
@@ -97,7 +101,8 @@ function show_table(e, o, item_body) {
     $(tr).appendTo(thead)
 
     /// Headers
-    if (o != undefined && Object.keys(o).length !== 0) {
+    if (o !== undefined && Object.keys(o).length !== 0) {
+
         $.each(o.at(0), function (k, v) {
             const th = document.createElement('th')
             $(th).text(k)
@@ -131,15 +136,16 @@ function show_table(e, o, item_body) {
             if (class_test !== undefined && class_test[k] !== undefined) {
                 if (class_test[k] === "isPassDate") {
                     const date = v.split('/')
-                    if (date.length === 3)
-                    {var exp = new Date(date[2], date[0] - 1, date[1]);
-                    var now = new Date();
-                    (now > exp) ? _td.addClass('table-danger') : _td.addClass('table-success')}
-                } else if (class_test[k] === "isLessThan") {
-                    console.log(v)
-                }
-                else
-                {
+                    if (date.length === 3) {
+                        const exp = new Date(date[2], date[0] - 1, date[1]);
+                        const now = new Date();
+                        (now > exp) ? _td.addClass('table-danger') : _td.addClass('table-success')
+                    }
+                } else if (class_test[k] === "isLessThan65536") {
+                    (65536 > v) ? _td.addClass('table-danger') : _td.addClass('table-success')
+                } else if (class_test[k] === "isLessThan1000") {
+                    (1000 > v) ? _td.addClass('table-danger') : _td.addClass('table-success')
+                } else {
                     (class_test[k] != String(v)) ? _td.addClass('table-danger') : _td.addClass('table-success')
                 }
             }

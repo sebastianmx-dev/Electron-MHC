@@ -21,7 +21,7 @@
   "Win32_Volume":{
     "IndexingEnabled": "false",
     "Compressed": "false",
-    "BlockSize": "isLessThan"
+    "BlockSize": "isLessThan65536"
   },
   "Win32_BaseBoard":{},
   "Win32_BIOS":{},
@@ -30,7 +30,12 @@
   "Win32_Processor":{},
   "CIM_VideoController":{},
   "Win32_SystemEnclosure":{},
-  "Win32_NetworkAdapter":{},
+  "Win32_NetworkAdapter":{
+    "Speed_mbps": "isLessThan1000",
+    "NetConnectionStatus": "Connected"
+
+
+  },
   "Win32_NetworkAdapterConfiguration":{},
   "Win32_NetworkConnection":{},
   "Win32_DesktopMonitor":{},
