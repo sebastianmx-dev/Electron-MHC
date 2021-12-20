@@ -1,7 +1,6 @@
 {
   "LicencedProducts": {
     "CarePlus": "isPassDate"
-
   },
   "LicenceDetails": {
     "InGrace": "0",
@@ -9,6 +8,9 @@
     "NotLicensed": "0"
   },
 
+  "cameraReport": {
+    "Snapshot": "convertToImage"
+  },
 
   "Win32_Service": {
     "StartMode": "Auto",
@@ -16,33 +18,31 @@
   },
   "Win32_Product": {},
   "Win32_DiskDrive": {},
-  "Win32_DiskPartition":{},
-  "Win32_LogicalDisk":{},
-  "Win32_Volume":{
+  "Win32_DiskPartition": {},
+  "Win32_LogicalDisk": {},
+  "Win32_Volume": {
     "IndexingEnabled": "false",
     "Compressed": "false",
     "BlockSize": "isLessThan65536"
   },
-  "Win32_BaseBoard":{},
-  "Win32_BIOS":{},
-  "Win32_CacheMemory":{},
-  "Win32_PhysicalMemory":{},
-  "Win32_Processor":{},
-  "CIM_VideoController":{},
-  "Win32_SystemEnclosure":{},
-  "Win32_NetworkAdapter":{
+  "Win32_BaseBoard": {},
+  "Win32_BIOS": {},
+  "Win32_CacheMemory": {},
+  "Win32_PhysicalMemory": {},
+  "Win32_Processor": {},
+  "CIM_VideoController": {},
+  "Win32_SystemEnclosure": {},
+  "Win32_NetworkAdapter": {
     "Speed_mbps": "isLessThan1000",
     "NetConnectionStatus": "Connected"
-
-
   },
-  "Win32_NetworkAdapterConfiguration":{},
-  "Win32_NetworkConnection":{},
-  "Win32_DesktopMonitor":{},
-  "Win32_VideoController":{},
-  "Win32_ComputerSystem":{},
-  "Win32_ComputerSystemProduct":{},
-  "Win32_OperatingSystem":{},
-  "Win32_QuickFixEngineering":{},
-  "Win32_StartupCommand":{}
+  "Win32_NetworkAdapterConfiguration": {},
+  "Win32_NetworkConnection": {},
+  "Win32_DesktopMonitor": {},
+  "Win32_VideoController": {},
+  "Win32_ComputerSystem": {},
+  "Win32_ComputerSystemProduct": {},
+  "Win32_OperatingSystem": {},
+  "Win32_QuickFixEngineering": {},
+  "Win32_StartupCommand": {}
 }

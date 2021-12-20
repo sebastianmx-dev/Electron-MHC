@@ -265,7 +265,7 @@ $Win32_StartupCommand = Get-CIMInstance -ClassName Win32_StartupCommand -CimSess
 
 #Connect-ManagementServer -ServerAddress http://10.1.0.21/ -Credential $Credential -SecureOnly false -AcceptEula
 #Connect-ManagementServer -ShowDialog
-Connect-ManagementServer -Server SGIU-VM1 -Credential $Credential 
+Connect-ManagementServer -Server SGIU-VM1 -Credential $Credential -Force -AcceptEula
 
 ######################################################################################################################################################################################
 # VMS - Licensed Products  - Get-LicensedProducts
@@ -332,7 +332,16 @@ $cameraReport = Get-VmsCameraReport -IncludeSnapshots `
     , MotionKeyframesOnly, State , Snapshot `
 | Sort-Object -Property  RecorderName, HardwareName, Name
 
-
+$Directory = "c:\Temp\"
+foreach ($C in $cameraReport)
+{
+    $FileName = '{0}-{1}.jpg' -f (Join-Path (Resolve-Path $Directory) ($C.Name)),(Get-Date).ToString('yyyyMMdd_HHmmss')
+    $EncoderParamSet = New-Object System.Drawing.Imaging.EncoderParameters(1) 
+    $EncoderParamSet.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter([System.Drawing.Imaging.Encoder]::Quality, 70) 
+    $JPGCodec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object{$_.MimeType -eq 'image/png'}
+    $C.Snapshot.Save($FileName ,$JPGCodec, $EncoderParamSet)
+    $C.Snapshot = $FileName
+}
 
 
 ######################################################################################################################################################################################

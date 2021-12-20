@@ -67,7 +67,8 @@ function initChart(chartName, dataKey, dataValue, max) {
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1,
-            stepped: true,
+            spanGaps: true,
+            //stepped: true,
         }]
     };
 
@@ -80,7 +81,7 @@ function initChart(chartName, dataKey, dataValue, max) {
         responsive: true,
         scales: {
             y: {
-               // min: 0,
+                min: 0,
                 max: max,
 
             },
@@ -291,6 +292,12 @@ function show_table(e, o, item_body) {
                     (65536 > v) ? _td.addClass('table-danger') : _td.addClass('table-success')
                 } else if (class_test[k] === "isLessThan1000") {
                     (1000 > v) ? _td.addClass('table-danger') : _td.addClass('table-success')
+                } else if (class_test[k] === "convertToImage") {
+
+
+                    var image = document.createElement('img');
+                    image.src = v;
+                    _td.html(image)
                 } else {
                     (class_test[k] != String(v)) ? _td.addClass('table-danger') : _td.addClass('table-success')
                 }
