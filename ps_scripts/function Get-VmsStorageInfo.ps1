@@ -22,13 +22,12 @@ function Get-VmsStorageInfo {
                 [pscustomobject]@{
                     RecordingServer = $recorder.Name
                     Name            = $storage.Name
-                    Path            = Join-Path -Path $storage.DiskPath -ChildPath "$($storage.Id)\"
+                    Path            = $storage.DiskPath
                     RetainMinutes   = $storage.RetainMinutes
                     MaxSize         = $storage.MaxSize
                     UsedSpace       = $usedSpace * 1MB
                     LockedUsedSpace = $lockedUsedSpace * 1MB
                     Signing         = $storage.Signing
-
                 }
                 Remove-Variable info, usedSpace, lockedUsedSpace
 
@@ -43,13 +42,12 @@ function Get-VmsStorageInfo {
                     [pscustomobject]@{
                         RecordingServer = $recorder.Name
                         Name            = $archive.Name
-                        Path            = Join-Path -Path $archive.DiskPath -ChildPath "$($archive.Id)\"
+                        Path            = $archive.DiskPath
                         RetainMinutes   = $archive.RetainMinutes
                         MaxSize         = $archive.MaxSize
                         UsedSpace       = $usedSpace * 1MB
                         LockedUsedSpace = $lockedUsedSpace * 1MB
                         Signing         = $archive.Signing
-
                     }
                 }
             }

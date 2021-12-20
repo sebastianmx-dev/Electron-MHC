@@ -2,7 +2,7 @@
   "name": "electron-mhc",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "js/main.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +19,9 @@
     "remote": "^0.2.6"
   },
   "dependencies": {
-    "electron-debug": "^3.2.0"
+    "chart.js": "^3.6.2",
+    "electron-debug": "^3.2.0",
+    "feather": "^0.0.6",
+    "feather-icons": "^4.28.0"
   }
 }
