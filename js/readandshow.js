@@ -1,84 +1,131 @@
+"use strict";
 var path = require('path');
 var fs = require('fs');
 const {Chart} = require("chart.js");
 const feather = require("feather-icons");
 
-var obj_file_path = path.join(__dirname, '/json/obj.json');
-var desc_file_path = path.join(__dirname, '/json/descriptions.json');
-var tests_file_path = path.join(__dirname, 'json/test.json');
+const obj_file_path = path.join(__dirname, '/json/obj.json');
+const desc_file_path = path.join(__dirname, '/json/descriptions.json');
+const tests_file_path = path.join(__dirname, 'json/test.json');
 
-var data;
-var tests;
-var descriptions
-var class_test
-
-$(".nav-link").on("click", function () {
-    $(".navbar-nav").find(".active").removeClass("active");
-    $(this).addClass("active");
-});
-
-
-$("#click_licences").click(function () {
-    build_accordion(data['Licenses'], descriptions)
-});
-
-$("#click_products").click(function () {
-    build_accordion(data['Products'], descriptions)
-});
-
-$("#click_server_info").click(function () {
-    build_accordion(data['ServersInformation'], descriptions)
-});
-
-
-$("#click_performance").click(function () {
-    build_charts(data['Performance'], descriptions)
-});
-
-
-$("#click_Report").click(function () {
-    build_accordion(data['Report'], descriptions)
-});
-
-$("#click_logs").click(function () {
-    build_accordion(data['ServersInformation'], descriptions)
-});
-
-$(document).ready(function () {
-    loadFiles()
-});
+let data;
+let tests;
+let descriptions
+let class_test
 
 function loadFiles() {
     data = JSON.parse(fs.readFileSync(obj_file_path).toString())
     descriptions = JSON.parse(fs.readFileSync(desc_file_path).toString())
     tests = JSON.parse(fs.readFileSync(tests_file_path).toString())
 }
+loadFiles()
 
-function initChart(chartName, dataKey, dataValue, max) {
+
+
+$(document).ready(function () {
+    $(".nav-link").on("click", function () {
+        $(".navbar-nav").find(".active").removeClass("active");
+        $(this).addClass("active");
+        const clicked_nav = this.id.replace('click_', '')
+        clicked_nav == 'Performance' ? build_charts(clicked_nav) : build_accordion(data[clicked_nav], descriptions)
+    });
+});
+
+function build_charts(clicked_nav) {
+    cleanContainers();
+    Object.entries(data[clicked_nav]).forEach((performanceCounter, index) => {
+        const perfName = performanceCounter[0]
+        performanceCounter[1].forEach((computer, index) => {
+            const chartName = `${perfName}_${computer["DisplayName"]}`
+            const dataValue = computer['Samples'].map(a => a['Value'])
+            const dataValue2 = computer['Samples'].map(a => a['Value2'])
+            const dataValue3 = computer['Samples'].map(a => a['Value3'])
+            const dataKey = computer['Samples'].map(a => a['TimeStamp'].replace('Z', ''));
+            const max = computer['Max']
+            build_chart(chartName, dataKey, dataValue, dataValue2, dataValue3, max);
+        })
+    })
+}
+
+function build_chart(chartName, dataKey, dataValue, dataValue2, dataValue3, max) {
+    $(`#${chartName}`).remove();
+    const canvas = document.createElement('canvas');
+    canvas.id = chartName;
+    canvas.width = 50;
+    canvas.height = 50;
+    canvas.style.zIndex = 0;
+    canvas.style.position = "absolute";
+    canvas.style.border = "1px solid";
+    const card = buildCard(chartName)
+    $('#graphContainer').append(card);
+    initChart(chartName, dataKey, dataValue, dataValue2, dataValue3, max);
+}
+function buildCard(chartName) {
+    const col = document.createElement('div');
+    $(col)
+        .addClass('col')
+
+    const card = document.createElement('div')
+    $(card)
+        .addClass('card')
+        .addClass('shadow-sm')
+        .appendTo(col)
+
+    const canvas = document.createElement('canvas')
+    $(canvas).addClass('my-4 w-100')
+        .attr({
+            id: chartName,
+            with: 200,
+            height: 150
+        })
+        .appendTo(card)
+
+    const card_body = document.createElement('div')
+    $(card_body).addClass('card-body')
+        .appendTo(card)
+
+    const text = document.createElement('p')
+    $(text).addClass('card-text').html(chartName)
+        .appendTo(card_body)
+
+    return col
+}
+function initChart(chartName, dataKey, dataValue, dataValue2, dataValue3, max) {
     feather.replace({'aria-hidden': 'true'})
 
-    var ctx = document.getElementById(chartName)
+
     // eslint-disable-next-line no-unused-vars
     const data = {
         labels: dataKey,
         datasets: [{
-            //     label: chartName,
+            data: dataValue3,
+            fill: false,
+            borderColor: 'rgb(207, 66, 66)',
+            tension: 0.1,
+            spanGaps: true,
+        }, {
+            data: dataValue2,
+            fill: false,
+            borderColor: 'rgb(54, 68, 217)',
+            tension: 0.1,
+            spanGaps: true,
+        }, {
             data: dataValue,
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
+
             tension: 0.1,
             spanGaps: true,
-            //stepped: true,
         }]
     };
 
     const options = {
+        responsive: true,
         plugins: {
             legend: {
                 display: false,
             }
         },
-        responsive: true,
         scales: {
             y: {
                 min: 0,
@@ -88,89 +135,22 @@ function initChart(chartName, dataKey, dataValue, max) {
             x: {
                 display: false,
             }
-
         }
     }
-
 
     const config = {
         type: 'line',
         data: data,
         options: options
     };
-
+    const ctx = document.getElementById(chartName)
     new Chart(ctx, config)
-
 }
-
-
-function buildCard(chartName, dataKey, dataValue) {
-
-    const col = document.createElement('div');
-    $(col).addClass('col')
-
-    const card = document.createElement('div')
-    $(card).addClass('card').addClass('shadow-sm').appendTo(col)
-
-    const canvas = document.createElement('canvas')
-    $(canvas).addClass('my-4 w-100')
-        .attr({
-            id: chartName,
-            with: 200,
-            height: 100
-        })
-        .appendTo(card)
-
-    const card_body = document.createElement('div')
-    $(card_body).addClass('card-body').appendTo(card)
-
-    const text = document.createElement('p')
-    $(text).addClass('card-text').html(chartName).appendTo(card_body)
-
-    return col
-}
-
-function build_chart(chartName, dataKey, dataValue, max) {
-    $(`#${chartName}`).remove();
-    var canvas = document.createElement('canvas');
-    canvas.id = chartName;
-    canvas.width = 50;
-    canvas.height = 50;
-    canvas.style.zIndex = 0;
-    canvas.style.position = "absolute";
-    canvas.style.border = "1px solid";
-
-    const card = buildCard(chartName, dataKey, dataValue)
-
-    $('#graphContainer').append(card);
-
-    initChart(chartName, dataKey, dataValue, max);
-}
-
-
-function cleanContainers() {
-    $("#accordion").html('')
-    $("#graphContainer").html('')
-}
-
-function build_charts(data, descriptions) {
-    cleanContainers();
-
-    Object.entries(data).forEach((performanceCounter, index) => {
-        const perfName = performanceCounter[0]
-        performanceCounter[1].forEach((computer, index) => {
-            const chartName = `${perfName}_${computer["PSComputerName"]}`
-            const dataValue = computer['Samples'].map(a => a['Value'])
-            const dataKey = computer['Samples'].map(a => a['TimeStamp'].replace('Z', ''));
-            build_chart(chartName, dataKey, dataValue, computer['Max']);
-        })
-    })
-}
-
 
 function build_accordion(data, descriptions) {
 
     cleanContainers();
+
     $.each(data, function (e, o) {
 
         const accordion_item = document.createElement('div');
@@ -182,8 +162,8 @@ function build_accordion(data, descriptions) {
             .attr('id', `heading_${e}`)
             .appendTo(accordion_item)
 
-        const des = e
-//      const des = descriptions[e]?.Spanish.Title ? descriptions[e]?.Spanish.Title : e /// DEBUG MODE ON
+        //const des = e
+        const des = descriptions[e]?.Spanish?.Title ? descriptions[e]?.Spanish.Title : e
 
         const item_button = document.createElement('button');
         $(item_button).addClass("accordion-button")
@@ -213,19 +193,17 @@ function build_accordion(data, descriptions) {
             .next(show_table(e, o, item_body))
     })
 }
-
 function show_description(e, descriptions, item_body) {
 
     const description_div = document.createElement('div');
     $(description_div).appendTo(item_body)
 
     const p = document.createElement('p');
-    $(p).text(descriptions[e]?.Spanish.Description)
+    $(p).text(descriptions[e]?.Spanish.Description
+    )
         .appendTo(description_div)
 
 }
-
-
 function show_table(e, o, item_body) {
 
     o = Array.isArray(o) ? o : [o];
@@ -254,8 +232,8 @@ function show_table(e, o, item_body) {
     }
 
     const trClasses = ["table-primary", "table-secondary", "table-info", "table-light"]
-    var dict = {}
-    i = 0
+    let dict = {}
+    let i = 0
 
 
     const tbody = document.createElement('tbody')
@@ -295,9 +273,13 @@ function show_table(e, o, item_body) {
                 } else if (class_test[k] === "convertToImage") {
 
 
-                    var image = document.createElement('img');
+                    const image = document.createElement('img');
                     image.src = v;
+                    $(image).addClass("img-fluid")
+
                     _td.html(image)
+
+
                 } else {
                     (class_test[k] != String(v)) ? _td.addClass('table-danger') : _td.addClass('table-success')
                 }
@@ -307,9 +289,7 @@ function show_table(e, o, item_body) {
     });
 }
 
-function getDateIfDate(d) {
-    var m = d.match(/\/Date\((\d+)\)\//);
-    return m ? (new Date(+m[1])).toLocaleDateString('en-US', {month: '2-digit', day: '2-digit', year: 'numeric'}) : d;
+function cleanContainers() {
+    $("#accordion").html('')
+    $("#graphContainer").html('')
 }
-
-

@@ -73,7 +73,157 @@ function Get-VmsStorageInfo {
         }
     }
 }
+function Convert {
+    Param($RetainMinutes)
+    
+    $ts = New-TimeSpan -Minutes $RetainMinutes
+    if ($ts.TotalDays -lt 1) {
+        $ts.TotalHours.ToString() + " Hours" 
+    }
+    else { $ts.TotalDays.ToString() + " Days" }
+}  
 
+function Get-RecorderReport {
+    [CmdletBinding()]
+    param (
+        # Specifies one or more Recording Servers from which to generate a camera report. By default all Recording Servers will be used.
+        [Parameter(ValueFromPipeline)]
+        [VideoOS.Platform.ConfigurationItems.RecordingServer[]]
+        $RecordingServer
+    )
+
+    begin {
+        $runspacepool = [runspacefactory]::CreateRunspacePool(4, 16)
+        $runspacepool.Open()
+        $threads = New-Object System.Collections.Generic.List[pscustomobject]
+
+        $process = {
+            param(
+                [VideoOS.Platform.ConfigurationItems.RecordingServer]$Recorder
+            )
+            try {
+                $hardware = $recorder | Get-Hardware
+                $cameras = $hardware | Get-Camera
+                $enabledHardware = $hardware | Where-Object Enabled
+                $enabledCameras = $cameras | Where-Object { $_.Enabled -and $_.ParentItemPath -in $enabledHardware.Path }
+
+                $obj = [PSCustomObject]@{
+                    RecordingServer           = $recorder.Name
+                    TotalHardware             = $hardware.Count
+                    EnabledHardware           = $enabledHardware.Count
+                    TotalCameras              = $cameras.Count
+                    EnabledCameras            = $enabledCameras.Count
+                    CamerasStarted            = 0
+                    UsedSpaceInBytes          = 0
+                    RecordedBPS               = 0
+                    TotalBPS                  = 0
+                    OverflowCount             = 0
+                    CamerasWithErrors         = 0
+                    CamerasNotConnected       = 0
+                    DatabaseRepairsInProgress = 0
+                    DatabaseWriteErrors       = 0
+                    CamerasNotLicensed        = 0
+                }
+
+                try {
+                    $svc = $recorder | Get-RecorderStatusService2
+                    $stats = $svc.GetVideoDeviceStatistics((Get-Token), [guid[]]$enabledCameras.Id)
+                    $status = $svc.GetCurrentDeviceStatus((Get-Token), [guid[]]$enabledCameras.Id)
+                    $liveStreams = $stats.VideoStreamStatisticsArray | Where-Object RecordingStream -eq $false
+                    $recordedStreams = $stats.VideoStreamStatisticsArray | Where-Object RecordingStream
+                    $recordedBPS = $recordedStreams | Measure-Object -Property BPS -Sum | Select-Object -ExpandProperty Sum
+
+                    $obj.CamerasStarted = ($status.CameraDeviceStatusArray | Where-Object Started).Count
+                    $obj.UsedSpaceInBytes = $stats | Measure-Object -Property UsedSpaceInBytes -Sum | Select-Object -ExpandProperty Sum
+                    $obj.RecordedBPS = $recordedBPS
+                    $obj.TotalBPS = $recordedBPS + ( $liveStreams | Measure-Object -Property BPS -Sum | Select-Object -ExpandProperty Sum )
+                    $obj.OverflowCount = ($status.CameraDeviceStatusArray | Where-Object ErrorOverflow).Count
+                    $obj.CamerasWithErrors = ($status.CameraDeviceStatusArray | Where-Object Error).Count
+                    $obj.CamerasNotConnected = ($status.CameraDeviceStatusArray | Where-Object ErrorNoConnection).Count
+                    $obj.DatabaseRepairsInProgress = ($status.CameraDeviceStatusArray | Where-Object DbRepairInProgress).Count
+                    $obj.DatabaseWriteErrors = ($status.CameraDeviceStatusArray | Where-Object ErrorWritingGop).Count
+                    $obj.CamerasNotLicensed = ($status.CameraDeviceStatusArray | Where-Object CamerasNotLicensed).Count
+                }
+                catch {
+                    Write-Error -Exception $_.Exception -Message "Error collecting statistics from $($recorder.Name) ($($recorder.Hostname))"
+                }
+
+                Write-Output $obj
+            }
+            catch {
+                Write-Error -Exception $_.Exception -Message "Unexpected error: $($_.Message). $($recorder.Name) ($($recorder.Hostname)) will not be included in the report."
+            }
+            finally {
+                $svc.Dispose()
+            }
+        }
+    }
+
+    process {
+        $progressParams = @{
+            Activity         = $MyInvocation.MyCommand.Name
+            CurrentOperation = ''
+            PercentComplete  = 0
+            Completed        = $false
+        }
+
+        if ($null -eq $RecordingServer) {
+            $RecordingServer = Get-RecordingServer
+        }
+
+        try {
+            foreach ($recorder in $RecordingServer) {
+                $ps = [powershell]::Create()
+                $ps.RunspacePool = $runspacepool
+                $asyncResult = $ps.AddScript($process).AddParameters(@{
+                        Recorder = $recorder
+                    }).BeginInvoke()
+                $threads.Add([pscustomobject]@{
+                        PowerShell = $ps
+                        Result     = $asyncResult
+                    })
+            }
+
+            if ($threads.Count -eq 0) {
+                return
+            }
+
+            $progressParams.CurrentOperation = 'Processing requests for recorder information'
+            $completedThreads = New-Object System.Collections.Generic.List[pscustomobject]
+            $totalJobs = $threads.Count
+            while ($threads.Count -gt 0) {
+                $progressParams.PercentComplete = ($totalJobs - $threads.Count) / $totalJobs * 100
+                $progressParams.Status = "Processed $($totalJobs - $threads.Count) out of $totalJobs requests"
+                Write-Progress @progressParams
+                foreach ($thread in $threads) {
+                    if ($thread.Result.IsCompleted) {
+                        $thread.PowerShell.EndInvoke($thread.Result)
+                        $thread.PowerShell.Dispose()
+                        $completedThreads.Add($thread)
+                    }
+                }
+                $completedThreads | Foreach-Object { [void]$threads.Remove($_) }
+                $completedThreads.Clear()
+                if ($threads.Count -eq 0) {
+                    break;
+                }
+                Start-Sleep -Seconds 1
+            }
+        }
+        finally {
+            if ($threads.Count -gt 0) {
+                Write-Warning "Stopping $($threads.Count) running PowerShell instances. This may take a minute. . ."
+                foreach ($thread in $threads) {
+                    $thread.PowerShell.Dispose()
+                }
+            }
+            $runspacepool.Close()
+            $runspacepool.Dispose()
+            $progressParams.Completed = $true
+            Write-Progress @progressParams
+        }
+    }
+}
 
 Write-Progress -Activity "Connecting to Servers" -Status "1% Complete:" -PercentComplete 1
 $User = "MEX-LAB\SGIU" 
@@ -143,10 +293,6 @@ $otherServers = $Win32_Product | Group-Object -Property Name | Where-Object {
 | Sort-Object -Property PSComputerName, Name 
 
 
-
-
-
-
 ######################################################################################################################################################################################
 # System - Computer - Win32_ComputerSystem
 ######################################################################################################################################################################################
@@ -162,11 +308,11 @@ $Win32_ComputerSystem = Get-CIMInstance -ClassName Win32_ComputerSystem -CimSess
 # Operating System - Win32_OperatingSystem
 ######################################################################################################################################################################################
 $i += $inc; Write-Progress -Activity "Collecting Data - Operating System" -Status "$i% Complete:" -PercentComplete $i
-
 $Win32_OperatingSystem = Get-CIMInstance -ClassName Win32_OperatingSystem -CimSession $session  `
 | Select-Object PSComputerName, Caption `
     , Version , BuildNumber, Manufacturer, OSArchitecture, SystemDrive `
-    , TotalVisibleMemorySize , FreePhysicalMemory, @{Name = "UsedMemory"; Expression = {  $_.TotalVisibleMemorySize -$_.FreePhysicalMemory}}  `
+    , TotalVisibleMemorySize , FreePhysicalMemory `
+    , @{Name = "UsedMemory"; Expression = { (($_.FreePhysicalMemory * 100) / $_.TotalVisibleMemorySize).tostring("P") } }`
     , LocalDateTime `
 | Sort-Object -Property PSComputerName, Name 
 
@@ -184,6 +330,7 @@ $Win32_Processor = Get-CIMInstance -ClassName Win32_Processor -CimSession $sessi
 # System - PhysicalMemory - Win32_PhysicalMemory
 ######################################################################################################################################################################################
 $i += $inc; Write-Progress -Activity "Collecting Data" -Status "$i% Complete:" -PercentComplete $i 
+
 $Win32_PhysicalMemory = Get-CIMInstance -ClassName Win32_PhysicalMemory -CimSession $session `
 | Select-Object PSComputerName, Tag, BankLabel, @{Name = "Capacity_GB"; Expression = { [math]::round($_.Capacity / 1GB, 2) } } `
     , Speed, ConfiguredClockSpeed `
@@ -228,6 +375,17 @@ $Win32_NetworkAdapter = Get-CIMInstance -ClassName Win32_NetworkAdapter -CimSess
 | Sort-Object -Property PSComputerName, Name
     
 ######################################################################################################################################################################################
+# System - Network - Win32_PerfFormattedData_Tcpip_NetworkInterface
+######################################################################################################################################################################################
+
+$Win32_PerfFormattedData_Tcpip_NetworkInterface = Get-CIMInstance -ClassName Win32_PerfFormattedData_Tcpip_NetworkInterface -CimSession $session `
+| Select-Object PSComputerName, Name `
+    , @{Name = "Mbps Received"; Expression = { [math]::Round($_.BytesReceivedPersec * 8000 * 0.000001 , 2).toString() } } `
+    , @{Name = "Mbps Sent"; Expression = { [math]::Round($_.BytesSentPersec * 8000 * 0.000001 , 2).toString() } }`
+    , @{Name = "Mbps Total"; Expression = { [math]::Round($_.BytesTotalPersec * 8000 * 0.000001 , 2).toString() } }  `
+| Sort-Object -Property PSComputerName, Tag 
+
+######################################################################################################################################################################################
 # System - Network Adapter - Win32_NetworkAdapterConfiguration
 ######################################################################################################################################################################################
 $i += $inc; Write-Progress -Activity "Collecting Data - System - Network Adapter Configuration" -Status "$i% Complete:" -PercentComplete $i
@@ -257,14 +415,9 @@ $Win32_StartupCommand = Get-CIMInstance -ClassName Win32_StartupCommand -CimSess
 
 
 ######################################################################################################################################################################################
-######################################################################################################################################################################################
-######################################################################################################################################################################################
+##################################################################### MILESTONE PS TOOLS #############################################################################################
 ######################################################################################################################################################################################
 
-# MILESTONE PS TOOLS
-
-#Connect-ManagementServer -ServerAddress http://10.1.0.21/ -Credential $Credential -SecureOnly false -AcceptEula
-#Connect-ManagementServer -ShowDialog
 Connect-ManagementServer -Server SGIU-VM1 -Credential $Credential -Force -AcceptEula
 
 ######################################################################################################################################################################################
@@ -291,23 +444,12 @@ $i += $inc; Write-Progress -Activity "Collecting Data - Operating System - Start
 $licenceOverview = Get-LicenseOverview `
 | Select-Object LicenseType, Activated 
 
-
-
-
 ######################################################################################################################################################################################
 # VMS - Get Storage Usage 
 ######################################################################################################################################################################################
 $i += $inc; Write-Progress -Activity "VMS - Get Storage Usage" -Status "$i% Complete:" -PercentComplete $i
 
-function Convert {
-    Param($RetainMinutes)
-    
-    $ts = New-TimeSpan -Minutes $RetainMinutes
-    if ($ts.TotalDays -lt 1) {
-        $ts.TotalHours.ToString() + " Hours" 
-    }
-    else { $ts.TotalDays.ToString() + " Days" }
-}  
+
 
 $storageInforation = Get-RecordingServer `
 | Get-VmsStorageInfo `
@@ -317,9 +459,6 @@ $storageInforation = Get-RecordingServer `
     , @{Name = "UsedSpace_GB"; Expression = { [math]::round($_.UsedSpace / 1GB, 2) } } `
     , @{Name = "UsedSpaca_%"; Expression = { (($_.UsedSpace / 1GB) / ($_.MaxSize / 1KB)).tostring("P") } } `
     , LockedUsedSpace, Path
-
-
-    
 
 ######################################################################################################################################################################################
 # VMS - Camera Report 
@@ -333,28 +472,67 @@ $cameraReport = Get-VmsCameraReport -IncludeSnapshots `
 | Sort-Object -Property  RecorderName, HardwareName, Name
 
 $Directory = "c:\Temp\"
-foreach ($C in $cameraReport)
-{
-    $FileName = '{0}-{1}.jpg' -f (Join-Path (Resolve-Path $Directory) ($C.Name)),(Get-Date).ToString('yyyyMMdd_HHmmss')
+foreach ($C in $cameraReport) {
+    $FileName = '{0}-{1}.jpg' -f (Join-Path (Resolve-Path $Directory) ($C.Name)), (Get-Date).ToString('yyyyMMdd_HHmmss')
     $EncoderParamSet = New-Object System.Drawing.Imaging.EncoderParameters(1) 
     $EncoderParamSet.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter([System.Drawing.Imaging.Encoder]::Quality, 70) 
-    $JPGCodec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object{$_.MimeType -eq 'image/png'}
-    $C.Snapshot.Save($FileName ,$JPGCodec, $EncoderParamSet)
+    $JPGCodec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq 'image/png' }
+    $C.Snapshot.Save($FileName , $JPGCodec, $EncoderParamSet)
     $C.Snapshot = $FileName
 }
 
 
 ######################################################################################################################################################################################
+# VMS - Recording Server Report 
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "VMS - Get Recording Server Report" -Status "$i% Complete:" -PercentComplete $i
+
+$recordinServerReport = Get-RecorderReport | Select-Object RecordingServer, TotalHardware, EnabledHardware `
+    , TotalCameras, EnabledCameras, RecordedBPS, TotalBPS, OverflowCount, CamerasWithErrors `
+    , DatabaseRepairsInProgress, DatabaseWriteErrors, CamerasNotLicensed
+
+
+######################################################################################################################################################################################
+# VMS - Logs 
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "VMS - Get Logs" -Status "$i% Complete:" -PercentComplete $i
+
+$logs = Get-Log -Tail -Minutes 10080 | Select-Object "Log level", "Local time", "Message text", "Category", "Source type", "Source name", "Event type"
+
+$logs_system_group = Get-Log -LogType System -Tail -Minutes 10080 `
+| Group-Object "Source name", "Message text" `
+| Select-Object Count, Name `
+| Sort-Object -Property Count -Descending
+
+$logs_Audit_group = Get-Log -LogType Audit -Tail -Minutes 10080 `
+| Group-Object "User", "Message text" `
+| Select-Object Count, Name `
+| Sort-Object -Property Count -Descending
+
+$logs_Rules_group = Get-Log -LogType Rules  -Tail -Minutes 10080 `
+| Group-Object "Source name", "Event type" `
+| Select-Object Count, Name `
+| Sort-Object -Property Count -Descending
+
+######################################################################################################################################################################################
+############################################################## PERFORMANCE COUNTERS ##################################################################################################
+######################################################################################################################################################################################
+
+
+
+######################################################################################################################################################################################
 # Performance - CPU
 ######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Performance - CPU" -Status "$i% Complete:" -PercentComplete $i
 $samples = 10
 
 $cpu_samples = New-Object System.Collections.Generic.List[System.Object]
 foreach ($s in $session) {
     $cpu_samples += [pscustomobject]@{
+        DisplayName    = $s.ComputerName
         PSComputerName = $s.ComputerName
         Samples        = New-Object System.Collections.Generic.List[System.Object]
-        Max = 100
+        Max            = 100
     }
 }
 
@@ -373,11 +551,10 @@ for ($i = 0; $i -lt $samples; $i++) {
 }
 
 
-
-
 ######################################################################################################################################################################################
 # Performance - Memory
 ######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Performance - Memory " -Status "$i% Complete:" -PercentComplete $i
 $samples = 10
 
 $TotalMemory = Get-CIMInstance Win32_OperatingSystem -CimSession $session | Select-Object TotalVisibleMemorySize, PSComputerName 
@@ -385,14 +562,15 @@ $TotalMemory = Get-CIMInstance Win32_OperatingSystem -CimSession $session | Sele
 $mem_samples = New-Object System.Collections.Generic.List[System.Object]
 foreach ($s in $session) {
     $mem_samples += [pscustomobject]@{
+        DisplayName    = $s.ComputerName
         PSComputerName = $s.ComputerName
         Samples        = New-Object System.Collections.Generic.List[System.Object]
-        Max = ($TotalMemory | Where-Object PSComputerName -eq $s.ComputerName).TotalVisibleMemorySize
+        Max            = ($TotalMemory | Where-Object PSComputerName -eq $s.ComputerName).TotalVisibleMemorySize
     }
 }
 
 for ($i = 0; $i -lt $samples; $i++) {
-    $mem_ = Get-CIMInstance Win32_OperatingSystem -CimSession $session | Select-Object @{Name = "UsedMemory"; Expression = {  $_.TotalVisibleMemorySize -$_.FreePhysicalMemory}} , PSComputerName 
+    $mem_ = Get-CIMInstance Win32_OperatingSystem -CimSession $session | Select-Object @{Name = "UsedMemory"; Expression = { $_.TotalVisibleMemorySize - $_.FreePhysicalMemory } } , PSComputerName 
     
     
     $timestamp = (Get-Date).ToString('u')
@@ -407,74 +585,53 @@ for ($i = 0; $i -lt $samples; $i++) {
     Start-Sleep -Seconds 1
 }
 
+######################################################################################################################################################################################
+# Performance - Network
+######################################################################################################################################################################################
+$i += $inc; Write-Progress -Activity "Performance - Network " -Status "$i% Complete:" -PercentComplete $i
+$samples = 10
 
+$network_interfaces = Get-CIMInstance Win32_PerfFormattedData_Tcpip_NetworkInterface -CimSession $session | Select-Object CurrentBandwidth, Name , PSComputerName
+    
+$network_samples = New-Object System.Collections.Generic.List[System.Object]
 
+foreach ($PSCcomputer_interface in $network_interfaces | Select-Object PSComputerName -Unique ) {
+    foreach ($networ_interface in $network_interfaces | Select-Object Name, CurrentBandwidth -Unique) {
 
+        $network_samples += [pscustomobject]@{
+            PSComputerName = $PSCcomputer_interface.PSComputerName
+            Name           = $networ_interface.Name
+            DisplayName    = "$($PSCcomputer_interface.PSComputerName) - $($networ_interface.Name)"
+            #Max            = [math]::Round($networ_interface.CurrentBandwidth * 0.001 , 2)
+            Samples        = New-Object System.Collections.Generic.List[System.Object]
+        }
+    }
+}
 
+for ($i = 0; $i -lt $samples; $i++) {
+    
+    Write-Progress -Activity "Performance - Network (${i+1})" -Status "$i% Complete:" -PercentComplete $i
+ 
+    $network_raw_samples = Get-CIMInstance -class Win32_PerfFormattedData_Tcpip_NetworkInterface -CimSession $session | Select-Object BytesReceivedPersec, BytesSentPersec , BytesTotalPersec , Name , PSComputerName
+    $timestamp = (Get-Date).ToString('u')
 
-# Get-CimInstance Win32_PerfFormattedData_Tcpip_NetworkInterface 
+    foreach ($network_sample in $network_raw_samples ) {
+    
+        $BytesReceivedPersec = [math]::Round($network_sample.BytesReceivedPersec * 8000 * 0.000001 , 2)
+        $BytesSentPersec = [math]::Round($network_sample.BytesSentPersec * 8000 * 0.000001 , 2)
+        $BytesTotalPersec = [math]::Round($network_sample.BytesTotalPersec * 8000 * 0.000001 , 2)
 
-
-# Get-CimInstance Win32_PerfFormattedData_Counters_PhysicalNetworkInterfaceCardActivity
-# Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory
-# Get-CimInstance Win32_PerfFormattedData_PerfOS_Processor
-# Get-CimInstance Win32_PerfFormattedData_PerfOS_System
-# Get-CimInstance Win32_PerfFormattedData_Counters_PhysicalNetworkInterfaceCardActivity
-
-
-
-
-# $samples = Get-Counter -Counter "\Processor(_Total)\% Processor Time" -SampleInterval 2 -MaxSamples 10
-# $cpu_samples = $samples | ForEach {
-#     $_.CounterSamples | ForEach {
-#         [pscustomobject]@{
-#             TimeStamp = $_.TimeStamp.ToString('u')
-#             Value     = (($_.CookedValue)/100).tostring("P")
-#         }
-#     }
-# }
-
-
-
-# #$samples = 
-# Get-Counter -Counter "\Memory\Available MBytes" -SampleInterval 2 -MaxSamples 10
-# $cpu_samples = $samples | ForEach {
-#     $_.CounterSamples | ForEach {
-#         [pscustomobject]@{
-#             TimeStamp = $_.TimeStamp.ToString('u')
-#             Value     = (($_.CookedValue)/100).tostring("P")
-#         }
-#     }
-# }
-
-#####
-# Candidates 
-# Get-Counter '\Processor(_Total)\% Processor Time'
-# Get-Counter '\Processor Information(*)\% Processor Time'
-# Get-Counter '\PhysicalDisk(*)\Current Disk Queue Length'
-# Get-Counter '\LogicalDisk(*)\Avg. Disk Queue Length'
-# Get-Counter '\LogicalDisk(*)\Free Megabytes'
-# Get-Counter '\Memory\Available Bytes' # need total memory
-# Get-Counter '\Memory\Committed Bytes'
-# Get-Counter '\System\Processor Queue Length'
-# Get-Counter '\VideoOS Recording Server Database(*)\Media/sec'
-# Get-Counter '\VideoOS Recording Server Database(*)\Bytes/sec'
-# Get-Counter '\VideoOS Recording Server Database Disk(*)\Media Data Bytes'
-# Get-Counter '\VideoOS Recording Server Database Disk(*)\Other Data Bytes'
-# Get-Counter '\VideoOS Recording Server Database Disk(*)\Free Bytes'
-# Get-Counter '\Network Interface(*)\Bytes Total/sec'
-# Get-Counter '\Network Interface(*)\Current Bandwidth'
-
-# $totalRam = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).Sum
-# $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-# $cpuTime = (Get-Counter '\Processor(_Total)\% Processor Time').CounterSamples.CookedValue
-# $availMem = (Get-Counter '\Memory\Available MBytes').CounterSamples.CookedValue
-# $date + ' > CPU: ' + $cpuTime.ToString("#,0.000") + '%, Avail. Mem.: ' + $availMem.ToString("N0") + 'MB (' + (104857600 * $availMem / $totalRam).ToString("#,0.0") + '%)'
-#     Start-Sleep -s 2
-
-
-
-
+        $actual_sample = ($network_samples | Where-Object { ($_.PSComputerName -eq $network_sample.PSComputerName) -and ($_.Name -eq $network_sample.Name) })
+        $actual_sample.Samples.Add(
+            [pscustomobject]@{
+                TimeStamp = $timestamp
+                Value     = $BytesTotalPersec
+                Value2    = $BytesReceivedPersec
+                Value3    = $BytesSentPersec
+            })
+    }
+    Start-Sleep -Seconds 5
+}
 
 ######################################################################################################################################################################################
 # Build output and save 
@@ -494,7 +651,13 @@ $products = [pscustomobject]@{
 
 $Report = [pscustomobject]@{
     cameraReport = $cameraReport
+    
 }
+
+$RecordingServerReport = [pscustomobject]@{
+    RecordingServerReport = $recordinServerReport
+}
+
 $licenses = [pscustomobject]@{
     LicencedProducts = $licencedProducts 
     LicenceDetails   = $licenceDetails 
@@ -502,32 +665,42 @@ $licenses = [pscustomobject]@{
 }
 
 $performance = [pscustomobject]@{
-    cpu_samples = $cpu_samples 
-    mem_samples = $mem_samples 
+    cpu_samples     = $cpu_samples 
+    mem_samples     = $mem_samples 
+    network_samples = $network_samples
 }
 
+$logs = [pscustomobject]@{
+    Logs_system_group = $logs_system_group
+    Logs_Audit_group  = $logs_Audit_group
+    Logs_Rules_group  = $logs_Rules_group
+    Logs              = $logs
 
+}
 
 $serversInformation = [pscustomobject]@{
-    Win32_ComputerSystem              = $Win32_ComputerSystem
-    Win32_OperatingSystem             = $Win32_OperatingSystem
-    Win32_Processor                   = $Win32_Processor
-    Win32_PhysicalMemory              = $Win32_PhysicalMemory
-    Win32_Volume                      = $Win32_Volume
-    StorageInforation                 = $storageInforation
-    Win32_VideoController             = $Win32_VideoController
-    Win32_NetworkAdapter              = $Win32_NetworkAdapter
-    Win32_NetworkAdapterConfiguration = $Win32_NetworkAdapterConfiguration
-    Win32_QuickFixEngineering         = $Win32_QuickFixEngineering
-    Win32_StartupCommand              = $Win32_StartupCommand
+    Win32_ComputerSystem                           = $Win32_ComputerSystem
+    Win32_OperatingSystem                          = $Win32_OperatingSystem
+    Win32_Processor                                = $Win32_Processor
+    Win32_PhysicalMemory                           = $Win32_PhysicalMemory
+    Win32_Volume                                   = $Win32_Volume
+    StorageInforation                              = $storageInforation
+    Win32_VideoController                          = $Win32_VideoController
+    Win32_NetworkAdapter                           = $Win32_NetworkAdapter
+    Win32_NetworkAdapterConfiguration              = $Win32_NetworkAdapterConfiguration
+    Win32_PerfFormattedData_Tcpip_NetworkInterface = $Win32_PerfFormattedData_Tcpip_NetworkInterface
+    Win32_QuickFixEngineering                      = $Win32_QuickFixEngineering
+    Win32_StartupCommand                           = $Win32_StartupCommand
 }
 
 $obj = [pscustomobject]@{
-    Products           = $products 
-    Licenses           = $licenses 
-    ServersInformation = $serversInformation
-    Report             = $Report
-    Performance        = $performance
+    Products              = $products 
+    Licenses              = $licenses 
+    ServersInformation    = $serversInformation
+    Report                = $Report
+    RecordingServerReport = $RecordingServerReport
+    Performance           = $performance
+    Logs                  = $logs
 }
 
 $obj | ConvertTo-Json -Depth 100 | Set-Content C:\Users\sgiu\source\repos\Electron-MHC\json\obj.json
