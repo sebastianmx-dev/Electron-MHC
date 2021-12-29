@@ -1,10 +1,23 @@
 {
     "LicencedProducts": {
-        "English": "",
+        "English": {
+            "Title": "Milestone XProtect Licenses",
+            "Description": "Keeping Milestone Care Plus status active allows users to update their Milestone XProtect product to the latest version as soon as it is released, without incurring additional costs. Keeping the Care Premium status active allows end users direct access to 24/7 Milestone Technical Support. In the same way, the priority in telephone calls is increased; and all Care Premium support cases receive a Service Level Agreement (SLA) for first response time and frequent status updates."
+        },
         "Spanish": {
-            "Title": "Licencias Milestone XProtect",
-            "Description": "Mantener activo el estado de Milestone Care Plus permite a los usuarios actualizar su producto Milestone XProtect a la última versión tan pronto como esta es liberada, sin incurrir en gastos adicionales. Manteniendo activo el estado de Care Premium permite a los usuarios finales acceso directo al Soporte Técnico de Milestone 24/7. De igual manera, se incrementa la prioridad en las llamadas telefónicas; y todos los casos de soporte Care Premium reciben un Acuerdo del Nivel de Servicio (Service Level Agreement (SLA)) para el tiempo de primera respuesta y actualización frecuente de estado."
+                "Title": "Licencias Milestone XProtect",
+            "Description": "Keeping Milestone Care Plus status active allows users to update their Milestone XProtect product to the latest version as soon as it is released, without incurring additional costs. Keeping the Care Premium status active allows end users direct access to 24/7 Milestone Technical Support. In the same way, the priority in telephone calls is increased; and all Care Premium support cases receive a Service Level Agreement (SLA) for first response time and frequent status updates."
+        },
+        "French": {
+            "Title": "Licences Milestone XProtect",
+            "Description": "Garder le statut Milestone Care Plus actif permet aux utilisateurs de mettre à jour leur produit Milestone XProtect vers la dernière version dès sa sortie, sans encourir de frais supplémentaires. Le maintien du statut Care Premium actif permet aux utilisateurs finaux d'accéder directement à l'assistance technique Milestone 24h/24 et 7j/7. De la même manière, la priorité dans les appels téléphoniques est augmentée ; et tous les cas d'assistance Care Premium reçoivent un accord de niveau de service (SLA) pour le premier temps de réponse et des mises à jour fréquentes de l'état."
+        },
+        "Portuguese": {
+            "Title": "Licenças Milestone XProtect",
+            "Description": "Manter o status Milestone Care Plus ativo permite que os usuários atualizem seu produto Milestone XProtect para a versão mais recente assim que for lançado, sem nenhum custo adicional. Manter o status Care Premium ativo dá aos usuários finais acesso direto ao suporte técnico Milestone 24 horas por dia, 7 dias por semana. Da mesma forma, aumenta a prioridade nas ligações telefônicas; e todos os casos de suporte do Care Premium recebem um Acordo de Nível de Serviço (SLA) para tempo de resposta antecipada e atualizações frequentes de status."
         }
+
+
     },
     "LicenceDetails": {
         "English": "",
