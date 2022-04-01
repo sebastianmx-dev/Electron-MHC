@@ -226,7 +226,7 @@ function Get-RecorderReport {
 }
 
 Write-Progress -Activity "Connecting to Servers" -Status "1% Complete:" -PercentComplete 1
-$User = "MEX-LAB\SGIU" 
+$User = ".\Administrator" 
 $PWord = ConvertTo-SecureString -String "Milestone1$" -AsPlainText -Force 
 $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $PWord
 
